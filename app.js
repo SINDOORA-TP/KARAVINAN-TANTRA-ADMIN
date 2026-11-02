@@ -459,9 +459,54 @@ const NUMBER_MEANINGS = {
 };
 
 /* ==========================================================================
+   SANCTUM CONFIG & DYNAMIC SETTINGS LOADER
+   ========================================================================== */
+async function loadSanctumSettings() {
+  try {
+    const res = await fetch('settings.json?' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (data.whatsappNumber) CONFIG.whatsappNumber = data.whatsappNumber.replace(/[^0-9]/g, '');
+      if (data.phone) CONFIG.phone = data.phone;
+      if (data.phoneDisplay) CONFIG.phoneDisplay = data.phoneDisplay;
+      if (data.sanctumLocation) CONFIG.sanctumLocation = data.sanctumLocation;
+      if (data.googleMapsUrl) CONFIG.googleMapsUrl = data.googleMapsUrl;
+      applyDynamicSettings();
+    }
+  } catch (e) {
+    console.warn('Could not load settings.json, using defaults', e);
+  }
+}
+
+function applyDynamicSettings() {
+  // Update WhatsApp links across the page
+  document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+    try {
+      const href = link.getAttribute('href') || '';
+      if (href.includes('wa.me/')) {
+        const parts = href.split('wa.me/');
+        const after = parts[1] || '';
+        const queryIndex = after.indexOf('?');
+        const query = queryIndex > -1 ? after.substring(queryIndex) : '';
+        link.href = `https://wa.me/${CONFIG.whatsappNumber}${query}`;
+      }
+    } catch (e) {}
+  });
+
+  // Update telephone links across the page
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.href = `tel:${CONFIG.phone}`;
+    if (link.textContent.includes('+91')) {
+      link.textContent = link.textContent.replace(/\+91[\s0-9]+/, CONFIG.phoneDisplay);
+    }
+  });
+}
+
+/* ==========================================================================
    INITIALIZATION
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
+  loadSanctumSettings();
   initLanguage();
   initStickyHeader();
   initMobileMenu();
@@ -599,7 +644,7 @@ async function loadHomamSchedule() {
   if (!grid) return;
 
   try {
-    const res = await fetch('schedule.json');
+    const res = await fetch('schedule.json?' + Date.now());
     if (!res.ok) throw new Error('Failed to fetch schedule.json');
     state.homamData = await res.json();
     renderHomamCards();
@@ -886,7 +931,7 @@ function closeLightbox() {
    ========================================================================== */
 async function loadDailyThought() {
   try {
-    const res = await fetch('thoughts.json');
+    const res = await fetch('thoughts.json?' + Date.now());
     if (!res.ok) throw new Error('Failed to fetch thoughts.json');
     state.thoughtsData = await res.json();
     renderDailyThought();
@@ -944,7 +989,7 @@ async function loadFeedback() {
   if (!grid) return;
 
   try {
-    const res = await fetch('feedback.json');
+    const res = await fetch('feedback.json?' + Date.now());
     if (!res.ok) throw new Error('Failed to fetch feedback.json');
     state.feedbackData = await res.json();
     renderFeedbackCards();
