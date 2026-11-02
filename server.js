@@ -85,9 +85,17 @@ const server = http.createServer((req, res) => {
   // Handle Static File Serving
   let reqPath = decodeURI(req.url.split('?')[0]);
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
-  if (reqPath === '/admin') reqPath = '/admin.html';
+  if (reqPath === '/admin' || reqPath === '/admin/') reqPath = '/admin/index.html';
 
-  const filePath = path.join(__dirname, reqPath);
+  let filePath = path.join(__dirname, reqPath);
+
+  // If path is a directory and contains index.html, serve it
+  try {
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+      const indexPath = path.join(filePath, 'index.html');
+      if (fs.existsSync(indexPath)) filePath = indexPath;
+    }
+  } catch (e) {}
 
   // Security check: ensure path stays within workspace root
   if (!filePath.startsWith(__dirname)) {
