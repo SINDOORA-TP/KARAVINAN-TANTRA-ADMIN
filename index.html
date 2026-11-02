@@ -172,8 +172,8 @@
             <line x1="12" y1="9" x2="12" y2="15" stroke="url(#goldGrad1)" stroke-width="2"/>
             <circle cx="12" cy="18" r="1" fill="url(#goldGrad1)"/>
           </svg>
-          <span class="hero-cta-title" data-i18n="hero_cta3_title">Name Numerology</span>
-          <span class="hero-cta-desc" data-i18n="hero_cta3_desc">Name & Pyramid Vibrations</span>
+          <span class="hero-cta-title" data-i18n="hero_cta3_title">Name & Mobile Numerology</span>
+          <span class="hero-cta-desc" data-i18n="hero_cta3_desc">Chaldean & Phone Vibrations</span>
         </a>
 
         <!-- CTA 4: Daily Thought -->
@@ -551,102 +551,140 @@
     <div class="container numerology-container">
       <div class="section-header">
         <div class="red-banner-plate" data-i18n="num_plate">
-          Unified Name Numerology
+          Sacred Numerology
         </div>
-        <h2 class="section-title" data-i18n="num_title">Name Number & Sacred Pyramid Vibration</h2>
+        <h2 class="section-title" data-i18n="num_title">Name & Mobile Number Numerology</h2>
         <p class="section-subtitle" data-i18n="num_subtitle">
-          Discover your complete Chaldean vibrational code, from individual letter values to the sacred Pyramid Apex.
+          Discover your sacred Chaldean Name & Pyramid Vibration and Mobile Number Frequency.
         </p>
       </div>
 
-      <!-- Single Gold-Framed Unified Panel (Step 4 Design) -->
-      <div class="gold-framed-card unified-name-panel">
-        <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
-        <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
-        <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
-        <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+      <!-- Two Gold Tabs Side-by-Side (Step 2) -->
+      <div class="numerology-tabs" role="tablist" aria-label="Numerology Calculation Types">
+        <button class="tab-btn numerology-tab-btn active" id="tabBtnName" role="tab" aria-selected="true" aria-controls="panelName" data-num-tab="name" data-i18n="num_tab_name">
+          Name Numerology
+        </button>
+        <button class="tab-btn numerology-tab-btn" id="tabBtnMobile" role="tab" aria-selected="false" aria-controls="panelMobile" data-num-tab="mobile" data-i18n="num_tab_mobile">
+          Mobile Number Numerology
+        </button>
+      </div>
 
-        <!-- Input Row -->
-        <div class="unified-input-row">
-          <input type="text" id="unifiedNameInput" class="num-input" placeholder="Enter Full Name (e.g. SAI or S. ARUL)" autocomplete="off">
-          <button id="unifiedCalculateBtn" class="btn-gold" data-i18n="num_calc_btn">
-            Reveal Sacred Vibration
-          </button>
-        </div>
+      <!-- Panel 1: Name Numerology -->
+      <div class="numerology-panel" id="panelName" role="tabpanel" aria-labelledby="tabBtnName">
+        <div class="gold-framed-card unified-name-panel">
+          <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
 
-        <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;" data-i18n="num_translit_hint">
-          Please enter names in English alphabets (A-Z). Dots, spaces, and initials are seamlessly processed.
-        </div>
-
-        <!-- Friendly Error Alert for Edge Cases -->
-        <div id="unifiedErrorAlert" style="display: none; background: rgba(179, 20, 27, 0.2); border: 1px solid var(--receipt-red); color: #FFF6DC; padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); text-align: center; margin-bottom: 1.5rem;"></div>
-
-        <!-- Results Wrapper (Revealed after calculation) -->
-        <div id="unifiedResultsWrap" style="display: none;">
-          <!-- Step 1: Letter Values -->
-          <div style="text-align: center; margin-top: 1rem;">
-            <div style="font-family: var(--font-heading); font-size: 0.88rem; color: var(--gold-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;" data-i18n="num_step1_label">
-              Step 1: Chaldean Letter Values
-            </div>
-            <div class="letter-tiles-container" id="letterTilesWrap"></div>
+          <!-- Input Row -->
+          <div class="unified-input-row">
+            <input type="text" id="nameInput" class="num-input" placeholder="Enter Full Name (e.g. SAI or S. ARUL)" autocomplete="off">
+            <button id="nameCalculateBtn" class="btn-gold" data-i18n="num_check_btn">
+              Check Result
+            </button>
           </div>
 
-          <!-- Step 2: Calculation & Centered Pyramid Triangle -->
-          <div style="margin-top: 1.75rem;">
-            <div style="font-family: var(--font-heading); font-size: 0.88rem; color: var(--gold-secondary); text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin-bottom: 0.5rem;" data-i18n="num_step2_label">
-              Step 2: Sacred Pyramid Reduction
-            </div>
-            <div class="step-calculation-summary" id="nameTotalSummary"></div>
-            
-            <div class="unified-pyramid-wrap">
-              <div class="unified-pyramid-triangle" id="pyramidTriangleWrap"></div>
-            </div>
+          <div style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;" data-i18n="num_name_hint">
+            Enter names in English letters (A-Z). Dots, spaces, and initials are seamlessly accepted.
           </div>
 
-          <!-- Step 3: Result Banner in Red Receipt-Style Plate -->
-          <div class="unified-result-plate">
-            <div class="result-plate-item">
-              <span class="result-plate-label" data-i18n="num_name_num_label">Name Number</span>
-              <span class="result-plate-num" id="bannerNameNumber">-</span>
+          <!-- Inline Error for Name -->
+          <div id="nameInlineError" class="numerology-inline-error" style="display: none;"></div>
+
+          <!-- Name Result Container (Final Results Only - Hidden until Check Result clicked) -->
+          <div id="nameResultsWrap" class="numerology-result-wrap" style="display: none;">
+            <!-- Red Banner Plate -->
+            <div class="unified-result-plate">
+              <div class="result-plate-item">
+                <span class="result-plate-label" data-i18n="num_name_num_label">Name Number</span>
+                <span class="result-plate-num" id="bannerNameNum">-</span>
+              </div>
+              <div class="result-plate-divider"></div>
+              <div class="result-plate-item">
+                <span class="result-plate-label" data-i18n="num_pyramid_num_label">Pyramid Number</span>
+                <span class="result-plate-num" id="bannerPyramidNum">-</span>
+              </div>
             </div>
-            <div class="result-plate-divider"></div>
-            <div class="result-plate-item">
-              <span class="result-plate-label" data-i18n="num_pyramid_num_label">Pyramid Number</span>
-              <span class="result-plate-num" id="bannerPyramidNumber">-</span>
+
+            <!-- Cream Result Panel -->
+            <div class="unified-interpretation-panel" id="nameInterpPanel">
+              <h3 id="nameInterpHeading">Numerology Result</h3>
+              <div class="interp-planet" id="nameInterpPlanet">Planetary Influence: -</div>
+              <div id="nameInterpToneBox"></div>
+
+              <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="#" id="nameWaGuidanceBtn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-i18n="num_guidance_btn">
+                  Speak with our organiser for guidance
+                </a>
+              </div>
             </div>
-          </div>
-
-          <!-- Step 4: Your Numerology Interpretation (High-Contrast Cream Panel) -->
-          <div class="unified-interpretation-panel" id="unifiedInterpretationPanel">
-            <h3 id="interpHeading">Your Numerology Interpretation</h3>
-            <div class="interp-planet" id="interpPlanet">Planetary Ruler: -</div>
-            
-            <!-- Tone Box (Gentle challenge wording for 2,4,5,7,8 vs Favourable for 1,3,6,9) -->
-            <div id="interpToneBox"></div>
-
-            <div id="interpNameDetails"></div>
-
-            <!-- Soft Guidance Action Button -->
-            <div style="text-align: center; margin-top: 1.5rem;">
-              <a href="#" id="interpWaGuidanceBtn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-i18n="num_pyramid_guidance_btn">
-                Speak with our organiser for guidance
-              </a>
-            </div>
-          </div>
-
-          <!-- Step 5: Direct Disclaimer directly under the result -->
-          <div class="unified-disclaimer" data-i18n="num_disclaimer">
-            Results are for spiritual and informational purposes only.
           </div>
         </div>
+      </div>
 
-        <!-- Privacy Line (Step 6) -->
-        <div style="text-align: center;">
-          <div class="unified-privacy">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span data-i18n="num_privacy">100% Client-Side Privacy: All calculations happen securely inside your browser. No names are stored or uploaded.</span>
+      <!-- Panel 2: Mobile Number Numerology -->
+      <div class="numerology-panel" id="panelMobile" role="tabpanel" aria-labelledby="tabBtnMobile" style="display: none;">
+        <div class="gold-framed-card unified-name-panel">
+          <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+
+          <!-- Input Row -->
+          <div class="unified-input-row">
+            <input type="tel" id="mobileInput" class="num-input" placeholder="Enter 10-digit Mobile Number (e.g. 9876543210)" autocomplete="off" maxlength="16">
+            <button id="mobileCalculateBtn" class="btn-gold" data-i18n="num_check_btn">
+              Check Result
+            </button>
+          </div>
+
+          <div style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;" data-i18n="num_mobile_hint">
+            Enter 10-digit mobile number. Optional +91 or 0 prefix is automatically supported.
+          </div>
+
+          <!-- Inline Error for Mobile -->
+          <div id="mobileInlineError" class="numerology-inline-error" style="display: none;"></div>
+
+          <!-- Mobile Result Container (Final Results Only - Hidden until Check Result clicked) -->
+          <div id="mobileResultsWrap" class="numerology-result-wrap" style="display: none;">
+            <!-- Red Banner Plate -->
+            <div class="unified-result-plate">
+              <div class="result-plate-item">
+                <span class="result-plate-label" data-i18n="num_mobile_num_label">Mobile Number Vibration</span>
+                <span class="result-plate-num" id="bannerMobileNum">-</span>
+              </div>
+            </div>
+
+            <!-- Cream Result Panel -->
+            <div class="unified-interpretation-panel" id="mobileInterpPanel">
+              <h3 id="mobileInterpHeading">Mobile Vibration Result</h3>
+              <div class="interp-planet" id="mobileInterpTitle">Cosmic Frequency</div>
+              <div class="interp-favourable-box" id="mobileInterpTextBox">
+                <p id="mobileInterpText"></p>
+              </div>
+
+              <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="#" id="mobileWaGuidanceBtn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-i18n="num_guidance_btn">
+                  Speak with our organiser for guidance
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- Privacy Notice (Step 7) -->
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <div class="unified-privacy">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span data-i18n="num_privacy">Your details are not stored. All calculations run securely in your browser.</span>
+        </div>
+      </div>
+
+      <!-- Single Disclaimer at bottom of section (Step 2) -->
+      <div class="unified-disclaimer" data-i18n="num_disclaimer">
+        Results are for spiritual and informational purposes only.
       </div>
     </div>
   </section>

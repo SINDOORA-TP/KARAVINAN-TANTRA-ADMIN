@@ -2352,108 +2352,67 @@ input, select, textarea {
   justify-content: center;
   margin: 1.5rem 0;
 }
-
-.letter-tile {
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: center;
-  background: linear-gradient(180deg, #2A1C0A 0%, #150E06 100%);
-  border: 1px solid var(--gold-primary);
-  outline: 1px solid var(--gold-border-subtle);
-  outline-offset: -3px;
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 0.75rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  transition: transform var(--transition-fast);
-}
-
-.letter-tile:hover {
-  transform: translateY(-2px);
-  border-color: #FFF0BA;
-}
-
-.letter-tile-char {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--gold-primary);
-}
-
-.letter-tile-val {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--cream);
-  margin-left: 3px;
-  vertical-align: sub;
-}
-
-.step-calculation-summary {
-  text-align: center;
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--gold-primary);
-  margin: 1rem 0 1.25rem;
-  letter-spacing: 0.05em;
-}
-
-.unified-pyramid-wrap {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100%;
-  padding: 1.75rem 0.5rem;
-  text-align: center;
-  margin: 1.5rem 0;
-  background: rgba(10, 10, 10, 0.7);
-  border: 1px solid rgba(246, 215, 122, 0.2);
-  border-radius: var(--radius-sm);
-}
-
-.unified-pyramid-triangle {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
-  margin: 0 auto;
-}
-
-.unified-pyramid-row {
+/* Numerology Tabs & Panels */
+.numerology-tabs {
   display: flex;
-  gap: 0.4rem;
+  align-items: center;
   justify-content: center;
-  animation: goldFadeIn 0.45s ease forwards;
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.numerology-tab-btn {
+  padding: 0.85rem 2.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(20, 13, 5, 0.85);
+  border: 1px solid var(--gold-border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.numerology-tab-btn:hover {
+  color: #FFF6DC;
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
+}
+
+.numerology-tab-btn.active {
+  color: #1A1208;
+  background: var(--gold-gradient);
+  border-color: var(--gold-primary);
+  box-shadow: 0 4px 15px rgba(246, 215, 122, 0.4);
+}
+
+.numerology-panel {
+  animation: goldFadeIn 0.35s ease forwards;
+}
+
+.numerology-inline-error {
+  background: rgba(179, 20, 27, 0.18);
+  border: 1px solid var(--receipt-red);
+  color: #FFF6DC;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  margin: 0.5rem auto 1.25rem;
+  max-width: 550px;
+  font-size: 0.88rem;
+  animation: goldFadeIn 0.3s ease;
+}
+
+.numerology-result-wrap {
+  animation: goldFadeIn 0.4s ease forwards;
 }
 
 @keyframes goldFadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.unified-pyramid-cell {
-  min-width: 36px;
-  height: 36px;
-  padding: 0 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.88rem;
-  font-weight: 700;
-  background: #181006;
-  border: 1px solid rgba(246, 215, 122, 0.4);
-  border-radius: var(--radius-sm);
-  color: var(--gold-primary);
-  font-family: monospace;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-.unified-pyramid-row:last-child .unified-pyramid-cell {
-  min-width: 56px;
-  height: 56px;
-  font-size: 1.75rem;
-  font-weight: 900;
-  background: var(--receipt-red-plate);
-  border: 2px solid var(--gold-primary);
-  color: #FFF6DC;
-  box-shadow: 0 0 25px rgba(246, 215, 122, 0.6), 0 4px 12px rgba(0, 0, 0, 0.8);
 }
 
 .unified-result-plate {
@@ -2580,6 +2539,15 @@ input, select, textarea {
 }
 
 @media (max-width: 600px) {
+  .numerology-tabs {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .numerology-tab-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1.25rem;
+  }
   .unified-input-row {
     flex-direction: column;
   }
@@ -2589,17 +2557,6 @@ input, select, textarea {
   }
   .result-plate-divider {
     display: none;
-  }
-  .unified-pyramid-cell {
-    min-width: 26px;
-    height: 26px;
-    font-size: 0.72rem;
-    padding: 0 3px;
-  }
-  .unified-pyramid-row:last-child .unified-pyramid-cell {
-    min-width: 44px;
-    height: 44px;
-    font-size: 1.35rem;
   }
   .unified-interpretation-panel {
     padding: 1.5rem 1.25rem;

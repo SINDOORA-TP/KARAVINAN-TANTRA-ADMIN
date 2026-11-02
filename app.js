@@ -19,12 +19,14 @@
 const state = {
   lang: 'en',
   activeHomamTab: 'upcoming',
+  activeNumTab: 'name',
   homamData: null,
   thoughtsData: null,
   feedbackData: null,
   galleryData: null,
   numerologyData: null,
-  lastCalculatedNameResult: null
+  lastNameResult: null,
+  lastMobileResult: null
 };
 
 // Configuration & Contacts (Easily customizable)
@@ -59,8 +61,8 @@ const TRANSLATIONS = {
     hero_cta1_desc: 'Upcoming Yagnas & Dates',
     hero_cta2_title: 'Tantra Vidhi',
     hero_cta2_desc: 'Agamic Wisdom & Darshan',
-    hero_cta3_title: 'Name Numerology',
-    hero_cta3_desc: 'Name & Pyramid Vibrations',
+    hero_cta3_title: 'Name & Mobile Numerology',
+    hero_cta3_desc: 'Chaldean & Phone Vibrations',
     hero_cta4_title: 'Daily Thought',
     hero_cta4_desc: 'Wisdom & Sacred Mantra',
     trust_years: '15+ Years Sadhana',
@@ -103,18 +105,19 @@ const TRANSLATIONS = {
     astro_subtitle: 'Unravel planetary influences, understand karmic blueprints, and attain peace through precise shastraic remedies.',
     astro_btn_book: 'Book Consultation',
 
-    num_plate: 'Unified Name Numerology',
-    num_title: 'Name Number & Sacred Pyramid Vibration',
-    num_subtitle: 'Discover your complete Chaldean vibrational code, from individual letter values to the sacred Pyramid Apex.',
-    num_calc_btn: 'Reveal Sacred Vibration',
-    num_translit_hint: 'Please enter names in English alphabets (A-Z). Dots, spaces, and initials are seamlessly processed.',
-    num_step1_label: 'Step 1: Chaldean Letter Values',
-    num_step2_label: 'Step 2: Sacred Pyramid Reduction',
+    num_plate: 'Sacred Numerology',
+    num_title: 'Name & Mobile Number Numerology',
+    num_subtitle: 'Discover your sacred Chaldean Name & Pyramid Vibration and Mobile Number Frequency.',
+    num_tab_name: 'Name Numerology',
+    num_tab_mobile: 'Mobile Number Numerology',
+    num_check_btn: 'Check Result',
+    num_name_hint: 'Enter names in English letters (A-Z). Dots, spaces, and initials are seamlessly accepted.',
+    num_mobile_hint: 'Enter 10-digit mobile number. Optional +91 or 0 prefix is automatically supported.',
     num_name_num_label: 'Name Number',
     num_pyramid_num_label: 'Pyramid Number',
-    num_interp_heading: 'Your Numerology Interpretation',
-    num_pyramid_guidance_btn: 'Speak with our organiser for guidance',
-    num_privacy: '100% Client-Side Privacy: All calculations happen securely inside your browser. No names are stored or uploaded.',
+    num_mobile_num_label: 'Mobile Number Vibration',
+    num_guidance_btn: 'Speak with our organiser for guidance',
+    num_privacy: 'Your details are not stored. All calculations run securely in your browser.',
     num_disclaimer: 'Results are for spiritual and informational purposes only.',
 
     daily_thought_plate: 'Daily Thought & Sacred Mantra',
@@ -174,8 +177,8 @@ const TRANSLATIONS = {
     hero_cta1_desc: 'வரவிருக்கும் யாகங்கள்',
     hero_cta2_title: 'தந்திர நெறி',
     hero_cta2_desc: 'ஆகம தத்துவம் & தரிசனம்',
-    hero_cta3_title: 'பெயர் எண் கணிதம்',
-    hero_cta3_desc: 'பெயர் & பிரமிடு அதிர்வு',
+    hero_cta3_title: 'பெயர் & மொபைல் எண் கணிதம்',
+    hero_cta3_desc: 'கல்தியன் & தொலைபேசி அதிர்வு',
     hero_cta4_title: 'இன்றைய சிந்தனை',
     hero_cta4_desc: 'தினசரி மந்திரம் & பொருள்',
     trust_years: '15+ ஆண்டுகள் சாதனா',
@@ -218,18 +221,19 @@ const TRANSLATIONS = {
     astro_subtitle: 'உங்கள் ஜனன கால ஜாதகத்தை நுணுக்கமாக ஆராய்ந்து, வாழ்வின் தடைகளை நீக்கும் துல்லியமான பரிகாரங்கள்.',
     astro_btn_book: 'ஆலோசனைக்கு முன்பதிவு',
 
-    num_plate: 'ஒருங்கிணைந்த பெயர் எண் கணிதம்',
-    num_title: 'பெயர் எண்ணும் பவித்ர பிரமிடு அதிர்வும்',
-    num_subtitle: 'கல்தியன் சாஸ்திரத்தின்படி எழுத்துக்களின் மதிப்பு முதல் பிரமிடு சிகரம் வரையிலான உங்கள் அதிர்வை அறியுங்கள்.',
-    num_calc_btn: 'அதிர்வை கணக்கிடுக',
-    num_translit_hint: 'ஆங்கில எழுத்துக்களில் (A-Z) பெயரை உள்ளிடவும். புள்ளிகள், இடைவெளிகள் தானாக ஏற்றுக்கொள்ளப்படும்.',
-    num_step1_label: 'படி 1: கல்தியன் எழுத்து மதிப்புகள்',
-    num_step2_label: 'படி 2: பிரமிடு கூடுகை கணக்கீடு',
+    num_plate: 'பவித்ர எண் கணிதம்',
+    num_title: 'பெயர் & மொபைல் எண் அதிர்வு',
+    num_subtitle: 'கல்தியன் பெயர் & பிரமிடு அதிர்வு மற்றும் மொபைல் எண் பொருத்தத்தை அறிந்துகொள்ளுங்கள்.',
+    num_tab_name: 'பெயர் எண் கணிதம்',
+    num_tab_mobile: 'மொபைல் எண் கணிதம்',
+    num_check_btn: 'முடிவை காண்க',
+    num_name_hint: 'ஆங்கில எழுத்துக்களில் (A-Z) பெயரை உள்ளிடவும். புள்ளிகள், இடைவெளிகள் ஏற்றுக்கொள்ளப்படும்.',
+    num_mobile_hint: '10 இலக்க தொலைபேசி எண்ணை உள்ளிடவும். +91 அல்லது 0 முன்னொட்டு தானாக ஏற்றுக்கொள்ளப்படும்.',
     num_name_num_label: 'பெயர் எண்',
     num_pyramid_num_label: 'பிரமிடு எண்',
-    num_interp_heading: 'உங்கள் எண் கணித பலன்',
-    num_pyramid_guidance_btn: 'குருநாதரின் வழிகாட்டுதல் பெற',
-    num_privacy: '🔒 100% பிரைவசி: உங்கள் பெயர் எங்கும் சேமிக்கப்படாது, உங்கள் உலாவியிலேயே கணக்கிடப்படுகிறது.',
+    num_mobile_num_label: 'மொபைல் எண் அதிர்வு',
+    num_guidance_btn: 'குருநாதரின் வழிகாட்டுதல் பெற',
+    num_privacy: '🔒 உங்கள் விவரங்கள் எங்கும் சேமிக்கப்படாது. உங்கள் உலாவியிலேயே கணக்கிடப்படுகிறது.',
     num_disclaimer: 'முடிவுகள் ஆன்மீக மற்றும் தகவல் விழிப்புணர்வு நோக்கத்திற்காக மட்டுமே.',
 
     daily_thought_plate: 'இன்றைய சிந்தனை & மந்திரம்',
@@ -272,7 +276,7 @@ const TRANSLATIONS = {
 };
 
 /* ==========================================================================
-   UNIFIED NAME NUMEROLOGY (Chaldean Letter Values & Pyramid Reduction)
+   SACRED NUMEROLOGY LOGIC (Name & Mobile Number - Step 3)
    ========================================================================== */
 const VALUES = {
   A: 1, I: 1, J: 1, Q: 1, Y: 1,
@@ -290,23 +294,19 @@ const reduce = n => {
   return n; 
 };
 
-function analyseName(raw) {
-  const letters = raw.toUpperCase().replace(/[^A-Z]/g, '').split('');
-  if (!letters.length) return null;
-  const values = letters.map(l => VALUES[l]);
+function nameResult(raw) {
+  const vals = raw.toUpperCase().replace(/[^A-Z]/g, '').split('').map(l => VALUES[l]);
+  if (!vals.length) return null;
+  const nameNumber = reduce(vals.reduce((a, b) => a + b, 0));
+  let row = vals;
+  while (row.length > 1) row = row.slice(1).map((v, i) => row[i] + v);
+  return { nameNumber, pyramidNumber: reduce(row[0]) };
+}
 
-  const nameTotal = values.reduce((a, b) => a + b, 0);
-  const nameNumber = reduce(nameTotal);
-
-  // pyramid: add neighbouring pairs until one number is left
-  const rows = [values];
-  let row = values;
-  while (row.length > 1) {
-    row = row.slice(1).map((v, i) => row[i] + v);
-    rows.push(row);
-  }
-  const pyramidNumber = reduce(row[0]);
-  return { letters, values, nameTotal, nameNumber, rows, pyramidNumber };
+function mobileResult(raw) {
+  const digits = raw.replace(/\D/g, '').replace(/^(91|0)(?=\d{10}$)/, '');
+  if (digits.length !== 10) return null;
+  return { mobileNumber: reduce([...digits].reduce((a, b) => a + +b, 0)) };
 }
 
 const NUMBER_MEANINGS = {
@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHomamTabs();
   loadGallery();
   loadNumerologyData();
-  initUnifiedNameNumerology();
+  initNumerologyTabs();
   loadDailyThought();
   loadFeedback();
   initContactForm();
@@ -513,10 +513,9 @@ function setLanguage(lang) {
   if (state.thoughtsData) renderDailyThought();
   if (state.feedbackData) renderFeedbackCards();
 
-  // Re-render unified name numerology if active
-  if (state.lastCalculatedNameResult) {
-    renderUnifiedNumerologyResult(state.lastCalculatedNameResult);
-  }
+  // Re-render active numerology if present
+  if (state.lastNameResult) renderNameResult(state.lastNameResult);
+  if (state.lastMobileResult) renderMobileResult(state.lastMobileResult);
 }
 
 /* ==========================================================================
@@ -921,209 +920,338 @@ function renderFeedbackCards() {
 }
 
 /* ==========================================================================
-   UNIFIED NAME NUMEROLOGY ENGINE (Chaldean Name & Pyramid Number)
+   NUMEROLOGY ENGINE (Name & Mobile Number - Final Results Only)
    ========================================================================== */
 async function loadNumerologyData() {
   try {
     const res = await fetch('numerology.json');
     if (!res.ok) throw new Error('Failed to fetch numerology.json');
     state.numerologyData = await res.json();
-    if (state.lastCalculatedNameResult) {
-      renderUnifiedNumerologyResult(state.lastCalculatedNameResult);
-    }
+    if (state.lastNameResult) renderNameResult(state.lastNameResult);
+    if (state.lastMobileResult) renderMobileResult(state.lastMobileResult);
   } catch (err) {
-    console.warn('Could not load numerology.json, falling back to local meanings', err);
+    console.warn('Could not load numerology.json, falling back to local defaults', err);
   }
 }
 
-function initUnifiedNameNumerology() {
-  const calcBtn = document.getElementById('unifiedCalculateBtn');
-  const input = document.getElementById('unifiedNameInput');
+function initNumerologyTabs() {
+  const tabName = document.getElementById('tabBtnName');
+  const tabMobile = document.getElementById('tabBtnMobile');
+  const panelName = document.getElementById('panelName');
+  const panelMobile = document.getElementById('panelMobile');
 
-  if (calcBtn) {
-    calcBtn.addEventListener('click', handleNameCalculation);
+  function switchTab(target) {
+    state.activeNumTab = target;
+    const isName = target === 'name';
+
+    if (tabName) {
+      tabName.classList.toggle('active', isName);
+      tabName.setAttribute('aria-selected', isName);
+    }
+    if (tabMobile) {
+      tabMobile.classList.toggle('active', !isName);
+      tabMobile.setAttribute('aria-selected', !isName);
+    }
+
+    if (panelName) panelName.style.display = isName ? 'block' : 'none';
+    if (panelMobile) panelMobile.style.display = isName ? 'none' : 'block';
+
+    // Keep old result clear when switching tabs (Step 5)
+    clearNumerologyResults();
   }
 
-  if (input) {
-    input.addEventListener('keypress', (e) => {
+  if (tabName) tabName.addEventListener('click', () => switchTab('name'));
+  if (tabMobile) tabMobile.addEventListener('click', () => switchTab('mobile'));
+
+  // Keyboard navigation for tabs
+  [tabName, tabMobile].forEach(btn => {
+    if (!btn) return;
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const next = btn === tabName ? 'mobile' : 'name';
+        switchTab(next);
+        const nextBtn = next === 'mobile' ? tabMobile : tabName;
+        if (nextBtn) nextBtn.focus();
+      }
+    });
+  });
+
+  // Name calculation triggers & input clear
+  const nameBtn = document.getElementById('nameCalculateBtn');
+  const nameInput = document.getElementById('nameInput');
+
+  if (nameBtn) nameBtn.addEventListener('click', handleNameCalculation);
+  if (nameInput) {
+    nameInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleNameCalculation();
+    });
+    // Keep old result clear when user edits the input (Step 5)
+    nameInput.addEventListener('input', () => {
+      hideNameResult();
+    });
+  }
+
+  // Mobile calculation triggers & input clear
+  const mobileBtn = document.getElementById('mobileCalculateBtn');
+  const mobileInput = document.getElementById('mobileInput');
+
+  if (mobileBtn) mobileBtn.addEventListener('click', handleMobileCalculation);
+  if (mobileInput) {
+    mobileInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleMobileCalculation();
+    });
+    // Keep old result clear when user edits the input (Step 5)
+    mobileInput.addEventListener('input', () => {
+      hideMobileResult();
     });
   }
 }
 
+function clearNumerologyResults() {
+  hideNameResult();
+  hideMobileResult();
+}
+
+function hideNameResult() {
+  const err = document.getElementById('nameInlineError');
+  const wrap = document.getElementById('nameResultsWrap');
+  if (err) err.style.display = 'none';
+  if (wrap) wrap.style.display = 'none';
+}
+
+function hideMobileResult() {
+  const err = document.getElementById('mobileInlineError');
+  const wrap = document.getElementById('mobileResultsWrap');
+  if (err) err.style.display = 'none';
+  if (wrap) wrap.style.display = 'none';
+}
+
+// --------------------------------------------------------------------------
+// NAME NUMEROLOGY (Step 3 & 5)
+// --------------------------------------------------------------------------
 function handleNameCalculation() {
-  const input = document.getElementById('unifiedNameInput');
-  const errorAlert = document.getElementById('unifiedErrorAlert');
-  const resultsWrap = document.getElementById('unifiedResultsWrap');
+  const input = document.getElementById('nameInput');
+  const err = document.getElementById('nameInlineError');
+  const wrap = document.getElementById('nameResultsWrap');
   const isTamil = state.lang === 'ta';
 
   if (!input) return;
-  const rawInput = input.value.trim();
+  const raw = input.value.trim();
 
   // Edge case 1: Empty input
-  if (!rawInput) {
-    if (errorAlert) {
-      errorAlert.textContent = isTamil 
-        ? 'தயவுசெய்து உங்கள் பெயரை உள்ளிடவும்.' 
-        : 'Please enter a name to reveal its sacred vibration.';
-      errorAlert.style.display = 'block';
+  if (!raw) {
+    if (err) {
+      err.textContent = isTamil ? 'தயவுசெய்து உங்கள் பெயரை உள்ளிடவும்.' : 'Please enter a name to check result.';
+      err.style.display = 'block';
     }
-    if (resultsWrap) resultsWrap.style.display = 'none';
+    if (wrap) wrap.style.display = 'none';
     return;
   }
 
-  // Edge case 2: Tamil script detected -> polite English transliteration reminder
-  if (/[\u0B80-\u0BFF]/.test(rawInput)) {
-    if (errorAlert) {
-      errorAlert.textContent = isTamil 
-        ? 'தயவுசெய்து ஆங்கில எழுத்துக்களில் (எ.கா. Kandasamy) பெயரை உள்ளிடவும். சாஸ்திர ரீதியான எழுத்துக்கூட்டுக்கு குருநாதரை அணுகலாம்.' 
-        : 'Please enter the name using English spelling (e.g., Kandasamy or S. Arul). For traditional transliterations, feel free to speak with our organiser.';
-      errorAlert.style.display = 'block';
+  // Edge case 2: Tamil script detected
+  if (/[\u0B80-\u0BFF]/.test(raw)) {
+    if (err) {
+      err.textContent = isTamil 
+        ? 'தயவுசெய்து ஆங்கில எழுத்துக்களில் (எ.கா. Kandasamy) பெயரை உள்ளிடவும்.' 
+        : 'Please enter the name using English spelling (e.g. Kandasamy or S. Arul).';
+      err.style.display = 'block';
     }
-    if (resultsWrap) resultsWrap.style.display = 'none';
+    if (wrap) wrap.style.display = 'none';
     return;
   }
 
-  // Execute Chaldean & Pyramid Algorithm
-  const result = analyseName(rawInput);
+  const result = nameResult(raw);
 
-  // Edge case 3: No valid alphabetic characters (only numbers or symbols)
-  if (!result || !result.letters.length) {
-    if (errorAlert) {
-      errorAlert.textContent = isTamil 
-        ? 'பெயரில் சரியான ஆங்கில எழுத்துக்களை (A-Z) உள்ளிடவும். புள்ளிகள் மற்றும் இடைவெளிகள் ஏற்றுக்கொள்ளப்படும்.' 
+  // Edge case 3: Non-letters only
+  if (!result) {
+    if (err) {
+      err.textContent = isTamil 
+        ? 'பெயரில் சரியான ஆங்கில எழுத்துக்களை (A-Z) உள்ளிடவும்.' 
         : 'Please enter valid alphabetic characters (A-Z). Dots and spaces are accepted.';
-      errorAlert.style.display = 'block';
+      err.style.display = 'block';
     }
-    if (resultsWrap) resultsWrap.style.display = 'none';
+    if (wrap) wrap.style.display = 'none';
     return;
   }
 
-  // Clear any previous error
-  if (errorAlert) errorAlert.style.display = 'none';
+  // Clear inline error
+  if (err) err.style.display = 'none';
 
-  // Store for language reactivity
-  state.lastCalculatedNameResult = { rawInput, ...result };
+  // Save in state
+  state.lastNameResult = { raw, ...result };
 
-  // Render unified output
-  renderUnifiedNumerologyResult(state.lastCalculatedNameResult);
+  // Render final results only (no steps, formulas, tiles, or triangles)
+  renderNameResult(state.lastNameResult);
 
-  // Smoothly reveal
-  if (resultsWrap) {
-    resultsWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // Smooth scroll
+  if (wrap) {
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 }
 
-function renderUnifiedNumerologyResult(data) {
+function renderNameResult(data) {
   if (!data) return;
-
-  const { rawInput, letters, values, nameTotal, nameNumber, rows, pyramidNumber } = data;
+  const { raw, nameNumber, pyramidNumber } = data;
   const isTamil = state.lang === 'ta';
 
-  const resultsWrap = document.getElementById('unifiedResultsWrap');
-  const letterTilesWrap = document.getElementById('letterTilesWrap');
-  const nameTotalSummary = document.getElementById('nameTotalSummary');
-  const pyramidTriangleWrap = document.getElementById('pyramidTriangleWrap');
-  const bannerNameNumber = document.getElementById('bannerNameNumber');
-  const bannerPyramidNumber = document.getElementById('bannerPyramidNumber');
-  const interpHeading = document.getElementById('interpHeading');
-  const interpPlanet = document.getElementById('interpPlanet');
-  const interpToneBox = document.getElementById('interpToneBox');
-  const interpNameDetails = document.getElementById('interpNameDetails');
-  const interpWaGuidanceBtn = document.getElementById('interpWaGuidanceBtn');
+  const wrap = document.getElementById('nameResultsWrap');
+  const bannerName = document.getElementById('bannerNameNum');
+  const bannerPyramid = document.getElementById('bannerPyramidNum');
+  const heading = document.getElementById('nameInterpHeading');
+  const planet = document.getElementById('nameInterpPlanet');
+  const toneBox = document.getElementById('nameInterpToneBox');
+  const waBtn = document.getElementById('nameWaGuidanceBtn');
 
-  if (!resultsWrap) return;
-  resultsWrap.style.display = 'block';
+  if (!wrap) return;
+  wrap.style.display = 'block';
 
-  // Step 1: Letter Values with small gold tiles (S3 A1 I1)
-  if (letterTilesWrap) {
-    letterTilesWrap.innerHTML = letters.map((char, i) => `
-      <span class="letter-tile" title="${char} = ${values[i]}">
-        <span class="letter-tile-char">${char}</span>
-        <span class="letter-tile-val">${values[i]}</span>
-      </span>
-    `).join('');
-  }
+  // Red banner plate: final numbers only
+  if (bannerName) bannerName.textContent = nameNumber;
+  if (bannerPyramid) bannerPyramid.textContent = pyramidNumber;
 
-  // Step 2: Calculation summary and centered pyramid triangle
-  if (nameTotalSummary) {
-    const sumBreakdown = values.join(' + ');
-    const reductionArrow = nameTotal !== nameNumber ? ` ➔ <strong>${nameNumber}</strong>` : '';
-    nameTotalSummary.innerHTML = `
-      <div>
-        <span>${isTamil ? 'பெயர் எண் கூடுகை:' : 'Name Number Sum:'}</span>
-        <code>${sumBreakdown} = ${nameTotal}${reductionArrow}</code>
-      </div>
-    `;
-  }
+  // Data from numerology.json
+  const pyramidDict = (state.numerologyData && state.numerologyData.pyramid) || {};
+  const pData = pyramidDict[String(pyramidNumber)] || {};
 
-  if (pyramidTriangleWrap) {
-    pyramidTriangleWrap.innerHTML = rows.map((rowArr, rowIdx) => {
-      const isApex = rowIdx === rows.length - 1;
-      const cellsHtml = rowArr.map(val => `
-        <span class="unified-pyramid-cell ${isApex ? 'apex' : ''}">${val}</span>
-      `).join('');
-      return `<div class="unified-pyramid-row" style="animation-delay: ${rowIdx * 0.05}s">${cellsHtml}</div>`;
-    }).join('');
-  }
-
-  // Step 3: Result Banner in red receipt-style plate
-  if (bannerNameNumber) bannerNameNumber.textContent = nameNumber;
-  if (bannerPyramidNumber) bannerPyramidNumber.textContent = pyramidNumber;
-
-  // Step 4: Numerology Interpretation (High-contrast cream panel)
-  const dict = state.numerologyData || {};
-  const pyramidData = dict[pyramidNumber] || (NUMBER_MEANINGS && NUMBER_MEANINGS[pyramidNumber]) || {};
-  const nameData = dict[nameNumber] || (NUMBER_MEANINGS && NUMBER_MEANINGS[nameNumber]) || {};
-
-  // Step 4 Tone logic: 2, 4, 5, 7, 8 gentle challenge; 1, 3, 6, 9 favourable
+  // Tone rules: 2, 4, 5, 7, 8 challenging (respectful); 1, 3, 6, 9 favourable
   const isChallenge = [2, 4, 5, 7, 8].includes(pyramidNumber);
 
-  if (interpHeading) {
-    const archName = isTamil && pyramidData.archetype_ta ? pyramidData.archetype_ta : (pyramidData.archetype || `Number ${pyramidNumber}`);
-    interpHeading.textContent = isTamil 
-      ? `பிரமிடு எண் ${pyramidNumber}: ${archName}` 
-      : `Pyramid Number ${pyramidNumber}: ${archName}`;
+  if (heading) {
+    const archName = isTamil && pData.archetype_ta ? pData.archetype_ta : (pData.archetype || `Pyramid Number ${pyramidNumber}`);
+    heading.textContent = isTamil 
+      ? `எண் கணித பலன் (பிரமிடு எண்: ${pyramidNumber} — ${archName})` 
+      : `Numerology Result: Pyramid Number ${pyramidNumber} (${archName})`;
   }
 
-  if (interpPlanet) {
-    const planetText = isTamil && pyramidData.planet_ta ? pyramidData.planet_ta : (pyramidData.planet || 'Cosmic Influence');
-    interpPlanet.textContent = `${isTamil ? 'அதிபதி கிரகம்: ' : 'Planetary Influence: '} ${planetText}`;
+  if (planet) {
+    const pText = isTamil && pData.planet_ta ? pData.planet_ta : (pData.planet || 'Surya');
+    planet.textContent = `${isTamil ? 'அதிபதி கிரகம்: ' : 'Planetary Influence: '} ${pText}`;
   }
 
-  if (interpToneBox) {
-    interpToneBox.className = isChallenge ? 'interp-challenge-box' : 'interp-favourable-box';
-    const interpText = isTamil && pyramidData.pyramid_interpretation_ta 
-      ? pyramidData.pyramid_interpretation_ta 
-      : (pyramidData.pyramid_interpretation || 'According to traditional numerology, guidance, devotion and sincere effort are said to help.');
-    interpToneBox.innerHTML = `<p>${interpText}</p>`;
+  if (toneBox) {
+    toneBox.className = isChallenge ? 'interp-challenge-box' : 'interp-favourable-box';
+    const interpText = isTamil && pData.text_ta 
+      ? pData.text_ta 
+      : (pData.text || (typeof pData === 'string' ? pData : 'According to this numerology method, guidance, devotion and sincere effort are said to help.'));
+    toneBox.innerHTML = `<p>${interpText}</p>`;
   }
 
-  if (interpNameDetails) {
-    const nameInterpText = isTamil && nameData.name_interpretation_ta 
-      ? nameData.name_interpretation_ta 
-      : (nameData.name_interpretation || 'Sacred name vibration.');
-    const nameArch = isTamil && nameData.archetype_ta ? nameData.archetype_ta : (nameData.archetype || '');
-    
-    interpNameDetails.innerHTML = `
-      <p style="margin-top: 1rem;">
-        <strong>${isTamil ? 'பெயர் எண் அதிர்வு' : 'Name Number Vibration'} (${nameNumber}${nameArch ? ` — ${nameArch}` : ''}):</strong>
-        ${nameInterpText}
-      </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; font-size: 0.92rem; color: #4A3515; border-top: 1px dashed rgba(138, 106, 31, 0.4); padding-top: 1rem;">
-        <div><strong>${isTamil ? 'சுப நாள்:' : 'Auspicious Day:'}</strong> ${pyramidData.auspicious_day || 'Auspicious Days'}</div>
-        <div><strong>${isTamil ? 'மங்கள நிறம்:' : 'Sacred Color:'}</strong> ${pyramidData.sacred_color || 'Gold & White'}</div>
-        <div><strong>${isTamil ? 'திசை:' : 'Direction:'}</strong> ${pyramidData.direction || 'East'}</div>
-      </div>
-    `;
-  }
-
-  // Soft Guidance Action Button
-  if (interpWaGuidanceBtn) {
+  if (waBtn) {
     const waText = encodeURIComponent(
-      `Namaste Sri Karavinan Swamigal,\n\nI calculated my Name Numerology on the website:\n✦ Name: ${rawInput}\n✦ Name Number: ${nameNumber}\n✦ Pyramid Number: ${pyramidNumber}\n\nI seek your sacred guidance and parikaram recommendations.`
+      `Namaste Sri Karavinan Swamigal,\n\nI checked my Name Numerology on the website:\n✦ Name: ${raw}\n✦ Name Number: ${nameNumber}\n✦ Pyramid Number: ${pyramidNumber}\n\nI seek your sacred guidance and recommended parikarams.`
     );
-    interpWaGuidanceBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${waText}`;
+    waBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${waText}`;
+  }
+}
+
+// --------------------------------------------------------------------------
+// MOBILE NUMBER NUMEROLOGY (Step 3 & 5)
+// --------------------------------------------------------------------------
+function handleMobileCalculation() {
+  const input = document.getElementById('mobileInput');
+  const err = document.getElementById('mobileInlineError');
+  const wrap = document.getElementById('mobileResultsWrap');
+  const isTamil = state.lang === 'ta';
+
+  if (!input) return;
+  const raw = input.value.trim();
+
+  // Edge case 1: Empty input
+  if (!raw) {
+    if (err) {
+      err.textContent = isTamil ? 'தயவுசெய்து உங்கள் மொபைல் எண்ணை உள்ளிடவும்.' : 'Please enter a mobile number to check result.';
+      err.style.display = 'block';
+    }
+    if (wrap) wrap.style.display = 'none';
+    return;
+  }
+
+  // Edge case 2: Letters entered
+  if (/[a-zA-Z]/.test(raw)) {
+    if (err) {
+      err.textContent = isTamil 
+        ? 'எண்களை மட்டுமே உள்ளிடவும் (எ.கா. 9876543210).' 
+        : 'Please enter numbers only. Letters are not allowed in mobile numbers.';
+      err.style.display = 'block';
+    }
+    if (wrap) wrap.style.display = 'none';
+    return;
+  }
+
+  const result = mobileResult(raw);
+
+  // Edge case 3: Length not 10 digits
+  if (!result) {
+    if (err) {
+      err.textContent = isTamil 
+        ? 'சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும் (எ.கா. 9876543210 அல்லது +91 98765 43210).' 
+        : 'Please enter a valid 10-digit mobile number (e.g. 9876543210 or +91 98765 43210).';
+      err.style.display = 'block';
+    }
+    if (wrap) wrap.style.display = 'none';
+    return;
+  }
+
+  // Clear inline error
+  if (err) err.style.display = 'none';
+
+  // Save in state
+  state.lastMobileResult = { raw, ...result };
+
+  // Render final results only
+  renderMobileResult(state.lastMobileResult);
+
+  // Smooth scroll
+  if (wrap) {
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function renderMobileResult(data) {
+  if (!data) return;
+  const { raw, mobileNumber } = data;
+  const isTamil = state.lang === 'ta';
+
+  const wrap = document.getElementById('mobileResultsWrap');
+  const bannerNum = document.getElementById('bannerMobileNum');
+  const heading = document.getElementById('mobileInterpHeading');
+  const title = document.getElementById('mobileInterpTitle');
+  const text = document.getElementById('mobileInterpText');
+  const waBtn = document.getElementById('mobileWaGuidanceBtn');
+
+  if (!wrap) return;
+  wrap.style.display = 'block';
+
+  // Red banner plate: final mobile vibration number
+  if (bannerNum) bannerNum.textContent = mobileNumber;
+
+  // Data from numerology.json
+  const mobileDict = (state.numerologyData && state.numerologyData.mobile) || {};
+  const mData = mobileDict[String(mobileNumber)] || {};
+
+  if (heading) {
+    heading.textContent = isTamil 
+      ? `மொபைல் எண் அதிர்வு முடிவு (எண்: ${mobileNumber})` 
+      : `Mobile Vibration Result: Frequency ${mobileNumber}`;
+  }
+
+  if (title) {
+    const tText = isTamil && mData.title_ta ? mData.title_ta : (mData.title || `Vibration ${mobileNumber}`);
+    title.textContent = tText;
+  }
+
+  if (text) {
+    const desc = isTamil && mData.text_ta 
+      ? mData.text_ta 
+      : (mData.text || (typeof mData === 'string' ? mData : 'Auspicious mobile frequency according to traditional numerology.'));
+    text.textContent = desc;
+  }
+
+  if (waBtn) {
+    const waText = encodeURIComponent(
+      `Namaste Sri Karavinan Swamigal,\n\nI checked my Mobile Number Numerology on the website:\n✦ Mobile Number: ${raw}\n✦ Vibration Number: ${mobileNumber}\n\nI seek your sacred guidance.`
+    );
+    waBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${waText}`;
   }
 }
 
