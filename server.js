@@ -21,7 +21,8 @@ const ALLOWED_SAVE_FILES = [
   'schedule.json',
   'thoughts.json',
   'feedback.json',
-  'numerology.json'
+  'numerology.json',
+  'settings.json'
 ];
 
 function sendJson(res, statusCode, data) {

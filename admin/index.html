@@ -303,26 +303,266 @@
         <div class="admin-section-header">
           <div class="red-banner-plate">Portal Administration</div>
           <h2 class="admin-title">Sanctum & Security Settings</h2>
-          <p class="admin-subtitle">Configure contact details, WhatsApp routing number, and update admin passcode.</p>
+          <p class="admin-subtitle">Configure contact details, WhatsApp routing number, temple timings, and update admin passcode.</p>
         </div>
 
-        <div class="admin-card gold-framed-card" style="max-width: 650px; margin: 0 auto;">
-          <h3 class="admin-card-title">✦ Change Admin Security Passcode</h3>
-          <div class="admin-form-group">
-            <label for="newPasscodeInput">New Admin Passcode</label>
-            <input type="password" id="newPasscodeInput" class="admin-input" placeholder="Enter new passcode (min 6 chars)">
+        <div style="display: flex; flex-direction: column; gap: 2rem; max-width: 800px; margin: 0 auto;">
+          <!-- Sanctum Contact & Information -->
+          <div class="admin-card gold-framed-card">
+            <h3 class="admin-card-title">✦ Sacred Sanctum Information (settings.json)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+              Changes saved here instantly update the WhatsApp consultation links, phone numbers, and physical address across the public website.
+            </p>
+            <div class="admin-form-grid-2">
+              <div class="admin-form-group">
+                <label for="settingsWhatsappInput">WhatsApp Number (with country code, digits only)</label>
+                <input type="text" id="settingsWhatsappInput" class="admin-input" placeholder="e.g. 919876543210">
+              </div>
+              <div class="admin-form-group">
+                <label for="settingsPhoneDisplayInput">Phone Display Number (formatted for humans)</label>
+                <input type="text" id="settingsPhoneDisplayInput" class="admin-input" placeholder="e.g. +91 98765 43210">
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label for="settingsAddressInput">Sanctum Physical Address</label>
+              <input type="text" id="settingsAddressInput" class="admin-input" placeholder="e.g. Sokkanur Village, Kinathukadavu Taluk, Coimbatore District, Tamil Nadu 642109">
+            </div>
+            <div class="admin-form-grid-2">
+              <div class="admin-form-group">
+                <label for="settingsMapsInput">Google Maps Directions URL</label>
+                <input type="text" id="settingsMapsInput" class="admin-input" placeholder="https://maps.google.com/?q=...">
+              </div>
+              <div class="admin-form-group">
+                <label for="settingsTimingsInput">Darshan & Ritual Timings</label>
+                <input type="text" id="settingsTimingsInput" class="admin-input" placeholder="e.g. Daily 6:00 AM - 1:00 PM, 4:30 PM - 8:30 PM">
+              </div>
+            </div>
+            <button id="saveSanctumSettingsBtn" class="btn-gold" style="margin-top: 1rem;">
+              Save Sanctum Details
+            </button>
           </div>
-          <div class="admin-form-group">
-            <label for="confirmPasscodeInput">Confirm New Passcode</label>
-            <input type="password" id="confirmPasscodeInput" class="admin-input" placeholder="Repeat new passcode">
+
+          <!-- Passcode Change -->
+          <div class="admin-card gold-framed-card">
+            <h3 class="admin-card-title">✦ Change Admin Security Passcode</h3>
+            <div class="admin-form-group">
+              <label for="newPasscodeInput">New Admin Passcode</label>
+              <input type="password" id="newPasscodeInput" class="admin-input" placeholder="Enter new passcode (min 6 chars)">
+            </div>
+            <div class="admin-form-group">
+              <label for="confirmPasscodeInput">Confirm New Passcode</label>
+              <input type="password" id="confirmPasscodeInput" class="admin-input" placeholder="Repeat new passcode">
+            </div>
+            <button id="saveNewPasscodeBtn" class="btn-gold" style="margin-top: 1rem;">
+              Update Passcode
+            </button>
           </div>
-          <button id="saveNewPasscodeBtn" class="btn-gold" style="margin-top: 1rem;">
-            Update Passcode
-          </button>
         </div>
       </section>
 
     </main>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: HOMAM SCHEDULE (ADD / EDIT)
+       ======================================================================== -->
+  <div id="homamModal" class="admin-modal-overlay">
+    <div class="admin-modal-card gold-framed-card">
+      <div class="admin-modal-header">
+        <h3 id="homamModalTitle" class="admin-modal-title">✦ Add New Sacred Ceremony</h3>
+        <button type="button" class="admin-modal-close" id="closeHomamModalBtn">&times;</button>
+      </div>
+      <form id="homamModalForm" onsubmit="return false;">
+        <input type="hidden" id="homamFormId" value="">
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="homamFormCategory">Ceremony Status Category</label>
+            <select id="homamFormCategory" class="admin-select">
+              <option value="upcoming">Upcoming Ceremonies</option>
+              <option value="past">Completed Ceremonies (Archive)</option>
+            </select>
+          </div>
+          <div class="admin-form-group">
+            <label for="homamFormDeity">Presiding Deity / Supreme Form *</label>
+            <input type="text" id="homamFormDeity" class="admin-input" placeholder="e.g. Sri Maha Pratyangira Devi" required>
+          </div>
+        </div>
+
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="homamFormName">Ceremony Name (English) *</label>
+            <input type="text" id="homamFormName" class="admin-input" placeholder="e.g. Maha Pratyangira Devi Shatru Samhara Homam" required>
+          </div>
+          <div class="admin-form-group">
+            <label for="homamFormNameTa">Ceremony Name (Tamil)</label>
+            <input type="text" id="homamFormNameTa" class="admin-input" placeholder="e.g. மகா பிரத்யங்கிரா தேவி சத்ரு சம்ஹார ஹோமம்">
+          </div>
+        </div>
+
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="homamFormDate">Ceremony Date (YYYY-MM-DD) *</label>
+            <input type="date" id="homamFormDate" class="admin-input" required>
+          </div>
+          <div class="admin-form-group">
+            <label for="homamFormTime">Auspicious Time (Muhurtham) *</label>
+            <input type="text" id="homamFormTime" class="admin-input" placeholder="e.g. 5:30 PM - 9:00 PM IST" required>
+          </div>
+        </div>
+
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="homamFormDisplayDate">Display Date (English)</label>
+            <input type="text" id="homamFormDisplayDate" class="admin-input" placeholder="e.g. Sunday, 15 November 2026">
+          </div>
+          <div class="admin-form-group">
+            <label for="homamFormDisplayDateTa">Display Date (Tamil)</label>
+            <input type="text" id="homamFormDisplayDateTa" class="admin-input" placeholder="e.g. ஞாயிறு, 15 நவம்பர் 2026">
+          </div>
+        </div>
+
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="homamFormVenue">Venue (English)</label>
+            <input type="text" id="homamFormVenue" class="admin-input" value="Sokkanur Maha Peedam Sanctum, Kinathukadavu">
+          </div>
+          <div class="admin-form-group">
+            <label for="homamFormVenueTa">Venue (Tamil)</label>
+            <input type="text" id="homamFormVenueTa" class="admin-input" value="சொக்கனூர் மகா பீடம், கிணத்துக்கடவு">
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="homamFormSummary">Sacred Purpose & Summary (English) *</label>
+          <textarea id="homamFormSummary" class="admin-textarea" rows="2" placeholder="Brief summary of spiritual benefits..." required></textarea>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="homamFormSummaryTa">Sacred Purpose & Summary (Tamil)</label>
+          <textarea id="homamFormSummaryTa" class="admin-textarea" rows="2" placeholder="தமிழில் சுருக்கம்..."></textarea>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="homamFormBenefits">Key Benefits (Comma separated)</label>
+          <input type="text" id="homamFormBenefits" class="admin-input" placeholder="e.g. Elimination of Drishti, Legal Victory, Family Shielding">
+        </div>
+
+        <div class="admin-form-grid-2" style="margin-top: 1rem;">
+          <label class="admin-checkbox-label">
+            <input type="checkbox" id="homamFormSankalpam" checked>
+            <span>Virtual Sankalpam Available for Devotees</span>
+          </label>
+          <label class="admin-checkbox-label">
+            <input type="checkbox" id="homamFormFeatured">
+            <span>Mark as Featured Ceremony</span>
+          </label>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" id="cancelHomamModalBtn">Cancel</button>
+          <button type="submit" class="btn-gold" id="saveHomamModalBtn">Save Ceremony</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: DAILY THOUGHT / MANTRA (ADD / EDIT)
+       ======================================================================== -->
+  <div id="thoughtModal" class="admin-modal-overlay">
+    <div class="admin-modal-card gold-framed-card">
+      <div class="admin-modal-header">
+        <h3 id="thoughtModalTitle" class="admin-modal-title">✦ Add Sacred Daily Mantra</h3>
+        <button type="button" class="admin-modal-close" id="closeThoughtModalBtn">&times;</button>
+      </div>
+      <form id="thoughtModalForm" onsubmit="return false;">
+        <input type="hidden" id="thoughtFormId" value="">
+        <div class="admin-form-group">
+          <label for="thoughtFormMantra">Sacred Sanskrit Mantra *</label>
+          <input type="text" id="thoughtFormMantra" class="admin-input" placeholder="e.g. ॐ सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः" required>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="thoughtFormMantraTa">Mantra in Tamil Phonetics</label>
+          <input type="text" id="thoughtFormMantraTa" class="admin-input" placeholder="e.g. ஓம் ஸர்வே பவந்து ஸுகின: ஸர்வே ஸந்து நிராமயா:">
+        </div>
+
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="thoughtFormTheme">Spiritual Theme (English) *</label>
+            <input type="text" id="thoughtFormTheme" class="admin-input" placeholder="e.g. Universal Harmony & Wellness" required>
+          </div>
+          <div class="admin-form-group">
+            <label for="thoughtFormThemeTa">Spiritual Theme (Tamil)</label>
+            <input type="text" id="thoughtFormThemeTa" class="admin-input" placeholder="e.g. அனைத்துயிரும் இன்புற்றிருக்க உலக அமைதி">
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="thoughtFormMeaning">Sacred Meaning & Reflection (English) *</label>
+          <textarea id="thoughtFormMeaning" class="admin-textarea" rows="3" placeholder="Divine reflection text..." required></textarea>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="thoughtFormMeaningTa">Sacred Meaning & Reflection (Tamil)</label>
+          <textarea id="thoughtFormMeaningTa" class="admin-textarea" rows="3" placeholder="தமிழில் விளக்கம்..."></textarea>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" id="cancelThoughtModalBtn">Cancel</button>
+          <button type="submit" class="btn-gold" id="saveThoughtModalBtn">Save Mantra</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: DEVOTEE TESTIMONIAL (ADD / EDIT)
+       ======================================================================== -->
+  <div id="feedbackModal" class="admin-modal-overlay">
+    <div class="admin-modal-card gold-framed-card">
+      <div class="admin-modal-header">
+        <h3 id="feedbackModalTitle" class="admin-modal-title">✦ Add Devotee Reflection</h3>
+        <button type="button" class="admin-modal-close" id="closeFeedbackModalBtn">&times;</button>
+      </div>
+      <form id="feedbackModalForm" onsubmit="return false;">
+        <input type="hidden" id="feedbackFormId" value="">
+        <div class="admin-form-grid-2">
+          <div class="admin-form-group">
+            <label for="feedbackFormName">Devotee / Family Name *</label>
+            <input type="text" id="feedbackFormName" class="admin-input" placeholder="e.g. S. Murugesan & Family" required>
+          </div>
+          <div class="admin-form-group">
+            <label for="feedbackFormPlace">Location / City *</label>
+            <input type="text" id="feedbackFormPlace" class="admin-input" placeholder="e.g. Coimbatore, Tamil Nadu" required>
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="feedbackFormRating">Devotee Rating</label>
+          <select id="feedbackFormRating" class="admin-select">
+            <option value="5">★★★★★ (5 Stars - Exceptional Grace)</option>
+            <option value="4">★★★★☆ (4 Stars - Very Positive)</option>
+            <option value="none">No Star Rating</option>
+          </select>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="feedbackFormText">Devotee Experience / Reflection (English) *</label>
+          <textarea id="feedbackFormText" class="admin-textarea" rows="3" placeholder="Devotee testimonial text..." required></textarea>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="feedbackFormTextTa">Devotee Experience (Tamil Translation - Optional)</label>
+          <textarea id="feedbackFormTextTa" class="admin-textarea" rows="3" placeholder="தமிழில் அனுபவம்..."></textarea>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin-cancel" id="cancelFeedbackModalBtn">Cancel</button>
+          <button type="submit" class="btn-gold" id="saveFeedbackModalBtn">Save Testimonial</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- Toast Notification -->
