@@ -1,7 +1,16 @@
 {
   "folderId": "1NTdI_Usvl_40BBq7E-yYQK8p3ezFRN-7",
   "apiKey": "AIzaSyDaotl5OgGir7tahLNLAVwpWJUl2996MvI",
-  "overrides": {},
+  "overrides": {
+    "1Pzy571ue1-4dXUEFRRXsS32N5EAgrLvu": {
+      "title": "enthiram",
+      "caption": ""
+    },
+    "1Ta4wTyHhCbgim0CbdiDvAUj2Lqnhj-3V": {
+      "title": "thayathu",
+      "caption": ""
+    }
+  },
   "hidden": [],
   "lastUpdated": "2026-11-02T13:06:18.401Z"
 }

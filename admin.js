@@ -297,7 +297,7 @@ async function fetchDrivePhotosAndRender() {
   try {
     // Robust query: query all files in parent folder, filter images client-side to prevent mimeType indexing delay
     const q = encodeURIComponent(`'${folderId}' in parents and trashed=false`);
-    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,description,mimeType)&orderBy=createdTime desc&pageSize=100&key=${apiKey}`;
+    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,description,mimeType,thumbnailLink,webContentLink)&orderBy=createdTime desc&pageSize=100&key=${apiKey}`;
 
     const res = await fetch(url);
     if (!res.ok) {
@@ -397,12 +397,22 @@ function renderPreviewCards(files) {
 
     const currentTitle = override.title !== undefined ? override.title : defaultTitle;
     const currentCaption = override.caption !== undefined ? override.caption : defaultCaption;
-    const imgSrc = `https://lh3.googleusercontent.com/d/${file.id}`;
+
+    // Multi-tier reliable Google Drive image URL resolution:
+    // 1. Signed thumbnailLink with high-res replacement (=s800)
+    // 2. High-res thumbnail endpoint as fallback
+    let imgSrc = '';
+    const fallbackSrc = `https://drive.google.com/thumbnail?id=${file.id}&sz=w800`;
+    if (file.thumbnailLink) {
+      imgSrc = file.thumbnailLink.replace(/=s\d+$/, '=s800');
+    } else {
+      imgSrc = fallbackSrc;
+    }
 
     return `
       <div class="preview-card ${isHidden ? 'is-hidden' : ''}" id="previewCard_${file.id}">
         <div class="preview-thumb-wrap">
-          <img src="${imgSrc}" alt="${defaultTitle}" class="preview-thumb" loading="lazy" onerror="this.src='assets/images/ka-crest.svg'">
+          <img src="${imgSrc}" alt="${defaultTitle}" class="preview-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="if(this.src!=='${fallbackSrc}'){this.src='${fallbackSrc}';}else{this.src='assets/images/ka-crest.svg';}">
           <span class="preview-badge-status ${isHidden ? 'badge-hidden' : 'badge-active'}" id="statusBadge_${file.id}">
             ${isHidden ? 'Hidden' : 'Active'}
           </span>
