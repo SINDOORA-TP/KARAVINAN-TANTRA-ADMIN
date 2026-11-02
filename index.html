@@ -172,8 +172,8 @@
             <line x1="12" y1="9" x2="12" y2="15" stroke="url(#goldGrad1)" stroke-width="2"/>
             <circle cx="12" cy="18" r="1" fill="url(#goldGrad1)"/>
           </svg>
-          <span class="hero-cta-title" data-i18n="hero_cta3_title">Pyramid Numerology</span>
-          <span class="hero-cta-desc" data-i18n="hero_cta3_desc">DOB & Name Vibrations</span>
+          <span class="hero-cta-title" data-i18n="hero_cta3_title">Name Numerology</span>
+          <span class="hero-cta-desc" data-i18n="hero_cta3_desc">Name & Pyramid Vibrations</span>
         </a>
 
         <!-- CTA 4: Daily Thought -->
@@ -545,161 +545,106 @@
   </div>
 
   <!-- ========================================================================
-       SECTION 6: NUMEROLOGY TOOL (Step 4 Updates: Pyramid Number)
+       SECTION 6: UNIFIED NAME NUMEROLOGY (Name Number + Pyramid Number)
        ======================================================================== -->
   <section class="numerology-section" id="numerology">
     <div class="container numerology-container">
       <div class="section-header">
         <div class="red-banner-plate" data-i18n="num_plate">
-          Sacred Numerology Calculator
+          Unified Name Numerology
         </div>
-        <h2 class="section-title" data-i18n="num_title">Discover Your Vibrational Blueprint</h2>
+        <h2 class="section-title" data-i18n="num_title">Name Number & Sacred Pyramid Vibration</h2>
         <p class="section-subtitle" data-i18n="num_subtitle">
-          Explore your Pyramid Number from Date of Birth, sacred Name Number, and Mobile Vibration using ancient shastras.
+          Discover your complete Chaldean vibrational code, from individual letter values to the sacred Pyramid Apex.
         </p>
       </div>
 
-      <!-- Calculator Navigation Tabs (3 Modes) -->
-      <div class="num-nav-tabs">
-        <button class="num-tab-btn active" data-num-tab="pyramid" data-i18n="num_tab_pyramid">
-          Pyramid Number (DOB)
-        </button>
-        <button class="num-tab-btn" data-num-tab="name" data-i18n="num_tab_name">
-          Name Number Vibration
-        </button>
-        <button class="num-tab-btn" data-num-tab="mobile" data-i18n="num_tab_mobile">
-          Mobile Number Harmony
-        </button>
-      </div>
-
-      <!-- Main Calculator Card -->
-      <div class="gold-framed-card">
+      <!-- Single Gold-Framed Unified Panel (Step 4 Design) -->
+      <div class="gold-framed-card unified-name-panel">
         <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
         <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
         <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
         <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
 
-        <!-- Mode 0: Pyramid Number from Date of Birth (Step 4 Default) -->
-        <div id="pyramidCalcWrap">
-          <div class="num-input-group">
-            <label for="dobInput" class="num-input-label" data-i18n="num_dob_label">
-              Select or Enter Date of Birth (DD/MM/YYYY):
-            </label>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-              <input type="date" id="dobInput" class="num-input" aria-label="Date of Birth Picker">
-              <input type="text" id="dobTextInput" class="num-input" placeholder="Or type DDMMYYYY (e.g. 02112005)" maxlength="8" autocomplete="off">
-            </div>
-            <span style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem; display: block;">
-              Standard Vedic-Pyramid method: 8-digit DOB reduction with pairwise addition to single apex vibration.
-            </span>
-          </div>
-
-          <button id="pyramidCalcBtn" class="btn-gold" style="width: 100%;" data-i18n="num_calc_pyramid_btn">
-            Calculate Sacred Pyramid Number
-          </button>
-        </div>
-
-        <!-- Mode 1: Name Number Calculator -->
-        <div id="nameCalcWrap" style="display: none;">
-          <div class="calc-settings-row">
-            <div class="system-select-wrap">
-              <label for="systemSelect">Calculation System:</label>
-              <select id="systemSelect" class="custom-select">
-                <option value="chaldean" selected>Chaldean System (Ancient Tantric Standard)</option>
-                <option value="pythagorean">Pythagorean System (Western Standard)</option>
-              </select>
-            </div>
-
-            <label class="checkbox-wrap">
-              <input type="checkbox" id="masterNumbersCheck" checked>
-              <span>Preserve Master Numbers (11 & 22)</span>
-            </label>
-          </div>
-
-          <div class="num-input-group">
-            <label for="nameInput" class="num-input-label">Enter Full Name / Business Name:</label>
-            <input type="text" id="nameInput" class="num-input" placeholder="e.g. KARAVINAN or SHIVA" autocomplete="off">
-          </div>
-
-          <!-- Live Letter Chips Breakdown -->
-          <div class="calc-breakdown-box" id="calcBreakdownBox">
-            <div class="letter-chips-wrap" id="letterChipsWrap"></div>
-            <div class="reduction-steps" id="reductionSteps"></div>
-          </div>
-
-          <button id="nameCalcBtn" class="btn-gold" style="width: 100%;" data-i18n="num_calc_btn">
+        <!-- Input Row -->
+        <div class="unified-input-row">
+          <input type="text" id="unifiedNameInput" class="num-input" placeholder="Enter Full Name (e.g. SAI or S. ARUL)" autocomplete="off">
+          <button id="unifiedCalculateBtn" class="btn-gold" data-i18n="num_calc_btn">
             Reveal Sacred Vibration
           </button>
         </div>
 
-        <!-- Mode 2: Mobile Number Calculator -->
-        <div id="mobileCalcWrap" style="display: none;">
-          <div class="num-input-group">
-            <label for="mobileInput" class="num-input-label">Enter 10-Digit Mobile Number:</label>
-            <input type="tel" id="mobileInput" class="num-input" placeholder="e.g. 9876543210" maxlength="10" autocomplete="off">
-          </div>
-
-          <div class="calc-breakdown-box" id="mobileBreakdownBox">
-            <div class="letter-chips-wrap" id="mobileChipsWrap"></div>
-            <div class="reduction-steps" id="mobileReductionSteps"></div>
-          </div>
-
-          <button id="mobileCalcBtn" class="btn-gold" style="width: 100%;" data-i18n="num_calc_btn">
-            Calculate Mobile Vibration
-          </button>
+        <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;" data-i18n="num_translit_hint">
+          Please enter names in English alphabets (A-Z). Dots, spaces, and initials are seamlessly processed.
         </div>
 
-        <!-- Calculation Result Reveal Card -->
-        <div class="num-result-card" id="numResultCard">
-          <div class="result-header">
-            <div class="result-badge">
-              <span class="result-num" id="resultNumberVal">1</span>
-              <span class="result-num-label">Number</span>
+        <!-- Friendly Error Alert for Edge Cases -->
+        <div id="unifiedErrorAlert" style="display: none; background: rgba(179, 20, 27, 0.2); border: 1px solid var(--receipt-red); color: #FFF6DC; padding: 0.85rem 1.25rem; border-radius: var(--radius-sm); text-align: center; margin-bottom: 1.5rem;"></div>
+
+        <!-- Results Wrapper (Revealed after calculation) -->
+        <div id="unifiedResultsWrap" style="display: none;">
+          <!-- Step 1: Letter Values -->
+          <div style="text-align: center; margin-top: 1rem;">
+            <div style="font-family: var(--font-heading); font-size: 0.88rem; color: var(--gold-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;" data-i18n="num_step1_label">
+              Step 1: Chaldean Letter Values
             </div>
-            <div class="result-title-wrap">
-              <h3 id="resultTitle">The Sovereign (Sun / Surya)</h3>
-              <div class="result-planet" id="resultPlanet">Planetary Ruler: Sun (Surya Bhagavan)</div>
+            <div class="letter-tiles-container" id="letterTilesWrap"></div>
+          </div>
+
+          <!-- Step 2: Calculation & Centered Pyramid Triangle -->
+          <div style="margin-top: 1.75rem;">
+            <div style="font-family: var(--font-heading); font-size: 0.88rem; color: var(--gold-secondary); text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin-bottom: 0.5rem;" data-i18n="num_step2_label">
+              Step 2: Sacred Pyramid Reduction
+            </div>
+            <div class="step-calculation-summary" id="nameTotalSummary"></div>
+            
+            <div class="unified-pyramid-wrap">
+              <div class="unified-pyramid-triangle" id="pyramidTriangleWrap"></div>
             </div>
           </div>
 
-          <!-- Step 4 Pyramid Visual Representation (Stepped Gold Triangle) -->
-          <div id="pyramidVisualWrap" style="display: none;"></div>
-
-          <div class="result-body">
-            <p id="resultDesc">
-              A powerful vibration of leadership, independence, vitality, and pioneering initiative. Commands respect and paves new paths.
-            </p>
-
-            <div class="result-attributes-grid">
-              <div class="res-attr">
-                <div class="res-attr-label">Auspicious Day</div>
-                <div class="res-attr-val" id="resultLuckyDay">Sunday</div>
-              </div>
-              <div class="res-attr">
-                <div class="res-attr-label">Sacred Colors</div>
-                <div class="res-attr-val" id="resultLuckyColor">Gold, Ruby Red, Amber</div>
-              </div>
-              <div class="res-attr">
-                <div class="res-attr-label">Favorable Direction</div>
-                <div class="res-attr-val" id="resultDirection">East</div>
-              </div>
+          <!-- Step 3: Result Banner in Red Receipt-Style Plate -->
+          <div class="unified-result-plate">
+            <div class="result-plate-item">
+              <span class="result-plate-label" data-i18n="num_name_num_label">Name Number</span>
+              <span class="result-plate-num" id="bannerNameNumber">-</span>
             </div>
-
-            <!-- Step 4 Gentle Tone & Guidance Callout -->
-            <div id="pyramidGuidanceWrap" style="display: none;"></div>
-
-            <!-- Direct Disclaimer directly under the result -->
-            <div style="margin-top: 1.25rem; font-size: 0.8rem; font-style: italic; color: var(--text-muted); text-align: center;" data-i18n="num_disclaimer">
-              Results are for spiritual and informational purposes only.
+            <div class="result-plate-divider"></div>
+            <div class="result-plate-item">
+              <span class="result-plate-label" data-i18n="num_pyramid_num_label">Pyramid Number</span>
+              <span class="result-plate-num" id="bannerPyramidNumber">-</span>
             </div>
+          </div>
+
+          <!-- Step 4: Your Numerology Interpretation (High-Contrast Cream Panel) -->
+          <div class="unified-interpretation-panel" id="unifiedInterpretationPanel">
+            <h3 id="interpHeading">Your Numerology Interpretation</h3>
+            <div class="interp-planet" id="interpPlanet">Planetary Ruler: -</div>
+            
+            <!-- Tone Box (Gentle challenge wording for 2,4,5,7,8 vs Favourable for 1,3,6,9) -->
+            <div id="interpToneBox"></div>
+
+            <div id="interpNameDetails"></div>
+
+            <!-- Soft Guidance Action Button -->
+            <div style="text-align: center; margin-top: 1.5rem;">
+              <a href="#" id="interpWaGuidanceBtn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-i18n="num_pyramid_guidance_btn">
+                Speak with our organiser for guidance
+              </a>
+            </div>
+          </div>
+
+          <!-- Step 5: Direct Disclaimer directly under the result -->
+          <div class="unified-disclaimer" data-i18n="num_disclaimer">
+            Results are for spiritual and informational purposes only.
           </div>
         </div>
 
-        <!-- Privacy & Disclaimer (Client Side Guarantee) -->
-        <div class="num-trust-box">
-          <div class="privacy-badge">
+        <!-- Privacy Line (Step 6) -->
+        <div style="text-align: center;">
+          <div class="unified-privacy">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span data-i18n="num_privacy">100% Client-Side Privacy: All calculations happen securely inside your browser. No phone numbers, names, or dates of birth are stored or uploaded.</span>
+            <span data-i18n="num_privacy">100% Client-Side Privacy: All calculations happen securely inside your browser. No names are stored or uploaded.</span>
           </div>
         </div>
       </div>
