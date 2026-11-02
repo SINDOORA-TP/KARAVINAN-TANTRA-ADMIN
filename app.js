@@ -705,19 +705,104 @@ function renderHomamCards() {
 }
 
 /* ==========================================================================
-   TANTRA SECTION GALLERY (gallery.json with Lightbox)
+   TANTRA SECTION GALLERY (Google Drive API v3 & Local Fallback)
    ========================================================================== */
 async function loadGallery() {
   const container = document.getElementById('tantraGallery');
   if (!container) return;
 
+  // 1. Check 10-minute sessionStorage cache to save API quota and speed up the page (Step 3)
+  const CACHE_KEY = 'tantra_gallery_cache';
+  const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+  try {
+    const cached = sessionStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const { timestamp, items } = JSON.parse(cached);
+      if (Date.now() - timestamp < CACHE_TTL && Array.isArray(items) && items.length > 0) {
+        state.galleryData = items;
+        renderGallery();
+        return;
+      }
+    }
+  } catch (e) {
+    // Session storage cache read error, continue
+  }
+
+  // 2. Load Gallery Config (Google Drive settings & overrides from admin)
+  let config = null;
+  try {
+    const cfgRes = await fetch('gallery_config.json?' + Date.now());
+    if (cfgRes.ok) config = await cfgRes.json();
+  } catch (e) {}
+
+  if (!config) {
+    try {
+      const localCfg = localStorage.getItem('karavinan_gallery_config');
+      if (localCfg) config = JSON.parse(localCfg);
+    } catch (e) {}
+  }
+
+  const folderId = config?.folderId;
+  const apiKey = config?.apiKey;
+  const overrides = config?.overrides || {};
+  const hiddenList = Array.isArray(config?.hidden) ? config.hidden : [];
+
+  // 3. If Google Drive configured, fetch from Google Drive API v3 (Step 3)
+  if (folderId && apiKey) {
+    try {
+      const q = encodeURIComponent(`'${folderId}' in parents and mimeType contains 'image/' and trashed=false`);
+      const url = `https://www.googleapis.com/drive/v3/files?q=${q}` +
+                  `&fields=files(id,name,description)&orderBy=createdTime desc&pageSize=60&key=${apiKey}`;
+      const res = await fetch(url);
+      if (res.ok) {
+        const { files } = await res.json();
+        if (Array.isArray(files) && files.length > 0) {
+          // Filter out admin-hidden files and apply title/caption overrides
+          const items = files
+            .filter(f => !hiddenList.includes(f.id))
+            .map(f => {
+              const defaultTitle = f.name.replace(/\.[^.]+$/, '');
+              const defaultCaption = f.description || '';
+              const ov = overrides[f.id] || {};
+              return {
+                id: f.id,
+                src: `https://lh3.googleusercontent.com/d/${f.id}`,
+                title: ov.title !== undefined && ov.title !== '' ? ov.title : defaultTitle,
+                caption: ov.caption !== undefined && ov.caption !== '' ? ov.caption : defaultCaption,
+                placeholder: false
+              };
+            });
+
+          if (items.length > 0) {
+            state.galleryData = items;
+            // Cache in sessionStorage for 10 minutes
+            try {
+              sessionStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), items }));
+            } catch (e) {}
+            renderGallery();
+            return;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Google Drive Gallery API request failed, falling back to local archive', err);
+    }
+  }
+
+  // 4. Fallback: Load curated gallery.json or gold placeholders
   try {
     const res = await fetch('gallery.json');
     if (!res.ok) throw new Error('Failed to fetch gallery.json');
     state.galleryData = await res.json();
     renderGallery();
   } catch (err) {
-    console.warn('Could not load gallery.json', err);
+    console.warn('Could not load gallery.json fallback, showing gold placeholders', err);
+    state.galleryData = [
+      { id: 'ph1', title: 'Agni Kunda Sanctum', caption: 'Sacred consecration', placeholder: true },
+      { id: 'ph2', title: 'Sri Yantra Puja', caption: 'Divine geometry', placeholder: true },
+      { id: 'ph3', title: 'Sokkanur Peedam', caption: 'Peedam Sanctum Darshan', placeholder: true }
+    ];
+    renderGallery();
   }
 }
 

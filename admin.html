@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal | Sri Karavinan Tantra Peedam</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- SVG Corner Flourish Gradient Definition -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#8A6A1F" />
+        <stop offset="50%" stop-color="#F6D77A" />
+        <stop offset="100%" stop-color="#C9992B" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ========================================================================
+       LOGIN GATE MODAL
+       ======================================================================== -->
+  <div id="loginGateModal" class="admin-login-modal">
+    <div class="gold-framed-card login-card">
+      <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+      <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+      <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+      <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+
+      <div class="login-crest">
+        <img src="assets/images/ka-crest.svg" alt="Karavinan Crest" width="60" height="60" onerror="this.style.display='none'">
+      </div>
+
+      <div class="red-banner-plate" style="margin-bottom: 0.75rem;">
+        Sanctum Administration
+      </div>
+      <h2 class="login-title">Sri Karavinan Tantra Peedam</h2>
+      <p class="login-subtitle">Enter your organiser security passcode to access website management.</p>
+
+      <div class="login-form-group">
+        <label for="adminPasscodeInput">Security Passcode</label>
+        <div class="passcode-input-wrap">
+          <input type="password" id="adminPasscodeInput" class="admin-input" placeholder="Enter admin passcode" autocomplete="current-password">
+          <button type="button" id="togglePasscodeVisibilityBtn" class="passcode-eye-btn" title="Toggle visibility">👁</button>
+        </div>
+        <div id="loginErrorMessage" class="admin-error-text" style="display: none;"></div>
+      </div>
+
+      <div class="login-actions">
+        <button id="adminLoginBtn" class="btn-gold" style="width: 100%;">
+          Enter Admin Portal
+        </button>
+      </div>
+
+      <div class="login-hint">
+        Default passcode: <code>karavinan2026</code> (can be changed inside portal)
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       ADMIN DASHBOARD APP
+       ======================================================================== -->
+  <div id="adminApp" class="admin-app" style="display: none;">
+    
+    <!-- Top Admin Header -->
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <div class="admin-brand">
+          <img src="assets/images/ka-crest.svg" alt="Crest" class="admin-brand-crest" width="42" height="42" onerror="this.style.display='none'">
+          <div>
+            <div class="admin-brand-title">Sri Karavinan Tantra Peedam</div>
+            <div class="admin-brand-badge">✦ Sanctum Admin Portal ✦</div>
+          </div>
+        </div>
+
+        <div class="admin-header-actions">
+          <a href="/" target="_blank" class="btn-outline-gold" title="Open Public Website">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span>View Public Site</span>
+          </a>
+          <button id="adminLogoutBtn" class="btn-admin-logout" title="Exit portal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Bar for Admin Tabs -->
+    <nav class="admin-nav-bar">
+      <div class="container admin-nav-inner">
+        <button class="admin-nav-tab active" data-tab="gallery">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Tantra Gallery (Google Drive)</span>
+        </button>
+        <button class="admin-nav-tab" data-tab="homam">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9 12 2"/></svg>
+          <span>Homam Schedule</span>
+        </button>
+        <button class="admin-nav-tab" data-tab="thoughts">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+          <span>Daily Thoughts</span>
+        </button>
+        <button class="admin-nav-tab" data-tab="feedback">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>Devotee Testimonials</span>
+        </button>
+        <button class="admin-nav-tab" data-tab="settings">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Sanctum Settings</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Admin Content Area -->
+    <main class="container admin-main-content">
+
+      <!-- ====================================================================
+           TAB 1: TANTRA GALLERY (GOOGLE DRIVE) - Workflow Step 4
+           ==================================================================== -->
+      <section id="tabContentGallery" class="admin-tab-content active">
+        <div class="admin-section-header">
+          <div class="red-banner-plate">Google Drive Integration</div>
+          <h2 class="admin-title">Tantra Gallery (Google Drive)</h2>
+          <p class="admin-subtitle">
+            Manage your Google Drive gallery link. Upload photos to your shared folder; they will automatically stream directly to the public website without needing code updates.
+          </p>
+        </div>
+
+        <!-- Google Drive Configuration Card -->
+        <div class="gold-framed-card admin-card">
+          <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+          <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+
+          <h3 class="admin-card-title">✦ Google Drive Folder & API Settings</h3>
+          
+          <div class="admin-grid-2">
+            <!-- Drive Folder ID / Link -->
+            <div class="admin-form-group">
+              <label for="driveFolderIdInput">
+                Google Drive Folder ID or Link
+                <span class="admin-field-hint">(Paste either the folder ID or the full URL)</span>
+              </label>
+              <input type="text" id="driveFolderIdInput" class="admin-input" placeholder="e.g. 1aBcDeFgHiJkLmNoP... or https://drive.google.com/drive/folders/..." autocomplete="off">
+              <div class="admin-input-subhint">
+                Folder sharing must be set to: <strong>"Anyone with the link can View"</strong>.
+              </div>
+            </div>
+
+            <!-- Google Drive API Key -->
+            <div class="admin-form-group">
+              <label for="driveApiKeyInput">
+                Google Drive API Key (Read-Only)
+                <span class="admin-field-hint">(Google Cloud Console API key)</span>
+              </label>
+              <input type="password" id="driveApiKeyInput" class="admin-input" placeholder="AIzaSy..." autocomplete="off">
+              <div class="admin-input-subhint">
+                Restricted to <em>Google Drive API</em> and your domain HTTP referrer.
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="admin-actions-row">
+            <button id="saveDriveConfigBtn" class="btn-gold">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              <span>Save Configuration</span>
+            </button>
+            <button id="openDriveFolderBtn" class="btn-outline-gold" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>Open Drive Folder</span>
+            </button>
+            <button id="refreshLivePreviewBtn" class="btn-outline-gold" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              <span>Refresh Live Preview</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Instruction Guide Box (Step 4 & 5) -->
+        <div class="admin-instructions-card">
+          <div class="instructions-header">
+            <span class="instructions-icon">📋</span>
+            <h4>Organiser Upload Guidelines & Instructions</h4>
+          </div>
+          <ul class="instructions-list">
+            <li><strong>Upload photos to your Drive folder, then refresh the preview below.</strong></li>
+            <li><strong>Formats:</strong> Use <code>JPG</code>, <code>PNG</code>, or <code>WebP</code>. (iPhone users: set Camera to <em>Most Compatible</em>, as Apple <code>HEIC</code> files cannot be rendered by web browsers).</li>
+            <li><strong>File Size:</strong> Recommended <strong>under 2 MB</strong> per image for instant mobile loading over cellular data.</li>
+            <li><strong>Titles:</strong> The file name in Google Drive automatically becomes the display title on the website (e.g. <code>Maha Pratyangira Homam.jpg</code> &rarr; <code>Maha Pratyangira Homam</code>).</li>
+            <li><strong>Captions:</strong> Enter spiritual descriptions in the file's <strong>Description</strong> field in Google Drive.</li>
+            <li><strong>Overrides & Hiding:</strong> Use the live preview below to temporarily hide any photo or override titles/captions without deleting the file from Drive.</li>
+          </ul>
+        </div>
+
+        <!-- Live Preview Section -->
+        <div class="admin-card live-preview-section">
+          <div class="live-preview-header">
+            <div>
+              <h3 class="admin-card-title">✦ Live Website Preview (Google Drive Stream)</h3>
+              <p class="live-preview-desc" id="drivePreviewStatusText">
+                Configure your Folder ID and API Key above and click "Refresh Live Preview".
+              </p>
+            </div>
+            <div>
+              <button id="saveAllOverridesBtn" class="btn-gold" style="display: none;">
+                Save Overrides
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview Items Grid -->
+          <div id="drivePreviewGrid" class="admin-preview-grid">
+            <!-- Rendered by admin.js -->
+            <div class="preview-empty-state">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <p>No Google Drive images loaded yet. Set your Folder ID and click <strong>"Refresh Live Preview"</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 2: HOMAM SCHEDULE MANAGER
+           ==================================================================== -->
+      <section id="tabContentHomam" class="admin-tab-content">
+        <div class="admin-section-header">
+          <div class="red-banner-plate">Rituals Management</div>
+          <h2 class="admin-title">Homam Schedule Manager</h2>
+          <p class="admin-subtitle">Add or edit upcoming yagnas, dates, venue information, and virtual sankalpam availability.</p>
+        </div>
+
+        <div class="admin-card gold-framed-card">
+          <div class="admin-tab-toolbar">
+            <h3 class="admin-card-title">✦ Scheduled Ceremonies (schedule.json)</h3>
+            <button id="addNewHomamModalBtn" class="btn-gold">+ Add New Homam</button>
+          </div>
+          <div id="homamListContainer" class="admin-list-container">
+            <!-- Loaded dynamically from schedule.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 3: DAILY THOUGHTS MANAGER
+           ==================================================================== -->
+      <section id="tabContentThoughts" class="admin-tab-content">
+        <div class="admin-section-header">
+          <div class="red-banner-plate">Daily Inspiration</div>
+          <h2 class="admin-title">Daily Thoughts & Mantras</h2>
+          <p class="admin-subtitle">Update and add to the rotating daily Sanskrit mantras and sacred spiritual reflections.</p>
+        </div>
+
+        <div class="admin-card gold-framed-card">
+          <div class="admin-tab-toolbar">
+            <h3 class="admin-card-title">✦ Mantra Repository (thoughts.json)</h3>
+            <button id="addNewThoughtBtn" class="btn-gold">+ Add New Mantra</button>
+          </div>
+          <div id="thoughtsListContainer" class="admin-list-container">
+            <!-- Loaded dynamically from thoughts.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 4: DEVOTEE TESTIMONIALS MANAGER
+           ==================================================================== -->
+      <section id="tabContentFeedback" class="admin-tab-content">
+        <div class="admin-section-header">
+          <div class="red-banner-plate">Devotee Reflections</div>
+          <h2 class="admin-title">What Devotees Say</h2>
+          <p class="admin-subtitle">Curate genuine devotee experiences, locations, and ceremony reflections shown on the website.</p>
+        </div>
+
+        <div class="admin-card gold-framed-card">
+          <div class="admin-tab-toolbar">
+            <h3 class="admin-card-title">✦ Testimonial Cards (feedback.json)</h3>
+            <button id="addNewFeedbackBtn" class="btn-gold">+ Add Testimonial</button>
+          </div>
+          <div id="feedbackListContainer" class="admin-list-container">
+            <!-- Loaded dynamically from feedback.json -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 5: SANCTUM SETTINGS
+           ==================================================================== -->
+      <section id="tabContentSettings" class="admin-tab-content">
+        <div class="admin-section-header">
+          <div class="red-banner-plate">Portal Administration</div>
+          <h2 class="admin-title">Sanctum & Security Settings</h2>
+          <p class="admin-subtitle">Configure contact details, WhatsApp routing number, and update admin passcode.</p>
+        </div>
+
+        <div class="admin-card gold-framed-card" style="max-width: 650px; margin: 0 auto;">
+          <h3 class="admin-card-title">✦ Change Admin Security Passcode</h3>
+          <div class="admin-form-group">
+            <label for="newPasscodeInput">New Admin Passcode</label>
+            <input type="password" id="newPasscodeInput" class="admin-input" placeholder="Enter new passcode (min 6 chars)">
+          </div>
+          <div class="admin-form-group">
+            <label for="confirmPasscodeInput">Confirm New Passcode</label>
+            <input type="password" id="confirmPasscodeInput" class="admin-input" placeholder="Repeat new passcode">
+          </div>
+          <button id="saveNewPasscodeBtn" class="btn-gold" style="margin-top: 1rem;">
+            Update Passcode
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="adminToast" class="admin-toast"></div>
+
+  <!-- Scripts -->
+  <script src="admin.js"></script>
+</body>
+</html>
