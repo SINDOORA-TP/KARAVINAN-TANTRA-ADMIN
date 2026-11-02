@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Sacred Agni Kunda & Maha Homam",
+    "title_ta": "மகா ஹோம அக்னி குண்டம்",
+    "caption": "Consecrated copper yajna kunda with 108 sacred herbs and cow ghee offerings.",
+    "caption_ta": "108 மூலிகைகளுடன் அக்னியில் சமர்ப்பிக்கப்படும் பவித்ர ஆஹுதி.",
+    "src": "assets/images/homam-ceremony.jpg",
+    "placeholder": false
+  },
+  {
+    "id": 2,
+    "title": "Sri Yantra & Cosmic Astrology Charts",
+    "title_ta": "ஸ்ரீ சக்ர யந்திரம் & ஜாதக கணிப்பு",
+    "caption": "Nine-fold cosmic mandala energizing sacred spatial dimensions.",
+    "caption_ta": "பிரபஞ்ச சக்திகளை ஈர்க்கும் நவாவரண ஸ்ரீ சக்ர யந்திரம்.",
+    "src": "assets/images/astrology-chart.jpg",
+    "placeholder": false
+  },
+  {
+    "id": 3,
+    "title": "Peedam Sanctum Darshan",
+    "title_ta": "சொக்கனூர் பீட திவ்ய தரிசனம்",
+    "caption": "The serene sanctum at Sokkanur where deep dhyana and rituals are conducted.",
+    "caption_ta": "அமைதி தவழும் சொக்கனூர் தவக்குடில்.",
+    "src": "assets/images/organiser.jpg",
+    "placeholder": false
+  },
+  {
+    "id": 4,
+    "title": "Maha Trishul & Bhairava Peedam",
+    "title_ta": "பைரவர் திரிசூல பீடம்",
+    "caption": "Sacred trishul symbolizing Iccha, Jnana, and Kriya Shakti.",
+    "caption_ta": "இச்சா, ஞான, கிரியா சக்திகளின் வடிவமான திரிசூல வழிபாடு.",
+    "src": "",
+    "placeholder": true
+  },
+  {
+    "id": 5,
+    "title": "Consecrated Yantra Inscriptions",
+    "title_ta": "உருவேற்றப்பட்ட செப்பு தகடு யந்திரங்கள்",
+    "caption": "Hand-engraved copper talismans consecrated during auspicious eclipses and purnimas.",
+    "caption_ta": "பௌர்ணமியில் சக்தி ஊட்டப்பட்ட ரக்ஷா யந்திரங்கள்.",
+    "src": "",
+    "placeholder": true
+  },
+  {
+    "id": 6,
+    "title": "Navagraha Mandala Offerings",
+    "title_ta": "நவகிரக மண்டல பூஜை",
+    "caption": "Nine celestial graha mandalas drawn with natural grains and vermilion.",
+    "caption_ta": "தானியங்களால் அலங்கரிக்கப்பட்ட நவகிரக மண்டலம்.",
+    "src": "",
+    "placeholder": true
+  }
+]

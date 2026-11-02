@@ -2,8 +2,14 @@
  * Karavinan Tantra Peedam - Core Application Logic
  * Features:
  *  - Multilingual Engine (English & Tamil)
- *  - JSON-driven Homam Schedule Loader
- *  - Sacred Numerology Engine (Chaldean & Pythagorean + Mobile reduction)
+ *  - JSON-driven Homam Schedule Loader (schedule.json)
+ *  - Sacred Tantra Gallery Loader (gallery.json) with Lightbox
+ *  - Daily Thought & Mantra Engine (thoughts.json - day-based auto picker)
+ *  - Customer Feedback & Reviews Loader (feedback.json)
+ *  - Sacred Numerology Engine:
+ *      * Chaldean & Pythagorean Name Number
+ *      * Mobile Number Vibration
+ *      * Pyramid Number from Date of Birth (Step 4 Algorithm)
  *  - Ambient Gold Particle Canvas
  *  - WhatsApp Enquiries & Form Handlers
  *  - Scroll Animations & Sticky Nav
@@ -14,6 +20,9 @@ const state = {
   lang: 'en',
   activeHomamTab: 'upcoming',
   homamData: null,
+  thoughtsData: null,
+  feedbackData: null,
+  galleryData: null,
   numerologySystem: 'chaldean',
   keepMasterNumbers: true
 };
@@ -35,8 +44,11 @@ const TRANSLATIONS = {
     nav_home: 'Home',
     nav_about: 'About',
     nav_homam: 'Homam Schedule',
+    nav_tantra: 'Tantra Vidhi',
     nav_astrology: 'Astrology',
     nav_numerology: 'Numerology',
+    nav_daily_thought: 'Daily Thought',
+    nav_feedback: 'Devotee Reviews',
     nav_contact: 'Contact',
     nav_sankalpam_btn: 'Book Sankalpam',
 
@@ -45,12 +57,12 @@ const TRANSLATIONS = {
     hero_subtitle: 'Awakening divine harmony, supreme protection, and spiritual prosperity through authentic Agamic Vidhi and sacred fire rituals at Sokkanur Sanctum.',
     hero_cta1_title: 'Homam Schedule',
     hero_cta1_desc: 'Upcoming Yagnas & Dates',
-    hero_cta2_title: 'Astrology',
-    hero_cta2_desc: 'Horoscope & Parikarams',
-    hero_cta3_title: 'Numerology',
-    hero_cta3_desc: 'Instant Name & Mobile Check',
-    hero_cta4_title: 'WhatsApp Guru',
-    hero_cta4_desc: 'Direct Spiritual Guidance',
+    hero_cta2_title: 'Tantra Vidhi',
+    hero_cta2_desc: 'Agamic Wisdom & Darshan',
+    hero_cta3_title: 'Pyramid Numerology',
+    hero_cta3_desc: 'DOB & Name Vibrations',
+    hero_cta4_title: 'Daily Thought',
+    hero_cta4_desc: 'Wisdom & Sacred Mantra',
     trust_years: '15+ Years Sadhana',
     trust_sankalpam: '5,000+ Sacred Sankalpams',
     trust_sanctum: 'Sokkanur, Tamil Nadu',
@@ -80,6 +92,12 @@ const TRANSLATIONS = {
     btn_enquire_wa: 'Enquire via WhatsApp',
     virtual_available: '✓ Virtual Sankalpam & Global Courier',
 
+    tantra_plate: 'Sacred Tantra Vidhi',
+    tantra_title: 'Agamic Wisdom, Yantras & Sacred Darshan',
+    tantra_subtitle: 'Understanding authentic Tantra as a noble science of conscious energy communion, devoid of superstition.',
+    tantra_intro_lead: 'Authentic Agamic Tantra is the sacred science of channeling cosmic energies through pure mantra, energized yantra, and consecrated fire.',
+    tantra_intro_text: 'At Sokkanur Peedam, Sri Karavinan Swamigal preserves this ancient lineage with highest spiritual purity (Shuddhi). Tantra here is dedicated to healing, dispelling karmic darkness, and awakening inner illumination — rooted in deep devotion to the Supreme Mother and Dharma.',
+
     astro_plate: 'Vedic Astrology & Parikaram',
     astro_title: 'Cosmic Diagnosis & Divine Remedies',
     astro_subtitle: 'Unravel planetary influences, understand karmic blueprints, and attain peace through precise shastraic remedies.',
@@ -87,12 +105,29 @@ const TRANSLATIONS = {
 
     num_plate: 'Sacred Numerology Calculator',
     num_title: 'Discover Your Vibrational Blueprint',
-    num_subtitle: 'Calculate your sacred Name Number and Mobile Number vibration using ancient Chaldean and Pythagorean wisdom.',
+    num_subtitle: 'Explore your Pyramid Number from Date of Birth, sacred Name Number, and Mobile Vibration using ancient shastras.',
+    num_tab_pyramid: 'Pyramid Number (DOB)',
     num_tab_name: 'Name Number Vibration',
     num_tab_mobile: 'Mobile Number Harmony',
+    num_dob_label: 'Select or Enter Date of Birth (DD/MM/YYYY):',
+    num_calc_pyramid_btn: 'Calculate Sacred Pyramid Number',
     num_calc_btn: 'Reveal Sacred Vibration',
-    num_privacy: '100% Client-Side Privacy: All calculations happen securely inside your browser. No phone numbers or names are stored or uploaded.',
+    num_pyramid_guidance_btn: 'Speak with our organiser for guidance',
+    num_privacy: '100% Client-Side Privacy: All calculations happen securely inside your browser. No phone numbers, names, or dates of birth are stored or uploaded.',
     num_disclaimer: 'Results are for spiritual and informational purposes only.',
+
+    daily_thought_plate: 'Daily Thought & Sacred Mantra',
+    daily_thought_title: 'Divine Contemplation for Today',
+    daily_thought_subtitle: 'A sacred spark of ancient wisdom and mantra to elevate your mind, cycling automatically at midnight.',
+    daily_meaning_label: 'Sacred Meaning & Spiritual Guidance:',
+    daily_share_wa: 'Share on WhatsApp',
+
+    feedback_plate: 'What Our Devotees Say',
+    feedback_title: 'Blessed Experiences & Sacred Transformations',
+    feedback_subtitle: 'Read genuine reflections from families blessed through Sokkanur Sanctum yagnas, horoscopes, and parikarams.',
+    feedback_invite_title: 'Share Your Sacred Experience',
+    feedback_invite_desc: 'Has your family or business experienced blessings through our Sankalpam? We warmly welcome your genuine thoughts.',
+    feedback_invite_btn: 'Send Feedback via WhatsApp',
 
     contact_plate: 'Sanctum & Direct Connect',
     contact_title: 'Seek Divine Guidance at Sokkanur',
@@ -123,8 +158,11 @@ const TRANSLATIONS = {
     nav_home: 'முகப்பு',
     nav_about: 'குருநாதர்',
     nav_homam: 'ஹோம அட்டவணை',
+    nav_tantra: 'தந்திர நெறி',
     nav_astrology: 'ஜோதிடம்',
     nav_numerology: 'எண் கணிதம்',
+    nav_daily_thought: 'இன்றைய சிந்தனை',
+    nav_feedback: 'பக்தர் அனுபவம்',
     nav_contact: 'தொடர்பு',
     nav_sankalpam_btn: 'சங்கல்பம் பதிவு',
 
@@ -133,12 +171,12 @@ const TRANSLATIONS = {
     hero_subtitle: 'சொக்கனூர் திருத்தலத்தில் 15 ஆண்டுகளுக்கும் மேலாக ஆகம தந்திர நெறிகள், கிரக தோஷ நிவர்த்தி மற்றும் சங்கல்ப யாகங்கள் மூலம் அருள் வழிகாட்டுகிறோம்.',
     hero_cta1_title: 'ஹோம அட்டவணை',
     hero_cta1_desc: 'வரவிருக்கும் யாகங்கள்',
-    hero_cta2_title: 'ஜோதிட ஆலோசனை',
-    hero_cta2_desc: 'ஜாதகம் & பரிகாரங்கள்',
-    hero_cta3_title: 'எண் கணிதம்',
-    hero_cta3_desc: 'பெயர் & மொபைல் எண் ஆய்வு',
-    hero_cta4_title: 'வாட்ஸ்அப் குரு',
-    hero_cta4_desc: 'நேரடி ஆன்மீக வழிகாட்டல்',
+    hero_cta2_title: 'தந்திர நெறி',
+    hero_cta2_desc: 'ஆகம தத்துவம் & தரிசனம்',
+    hero_cta3_title: 'பிரமிடு எண் கணிதம்',
+    hero_cta3_desc: 'பிறந்த தேதி அதிர்வு',
+    hero_cta4_title: 'இன்றைய சிந்தனை',
+    hero_cta4_desc: 'தினசரி மந்திரம் & பொருள்',
     trust_years: '15+ ஆண்டுகள் சாதனா',
     trust_sankalpam: '5,000+ பவித்ர சங்கல்பங்கள்',
     trust_sanctum: 'சொக்கனூர், தமிழ்நாடு',
@@ -168,19 +206,42 @@ const TRANSLATIONS = {
     btn_enquire_wa: 'வாட்ஸ்அப்பில் பதிவு செய்க',
     virtual_available: '✓ ஆன்லைன் சங்கல்பம் & உலகளாவிய பிரசாதம்',
 
+    tantra_plate: 'பவித்ர தந்திர நெறி',
+    tantra_title: 'ஆகம தந்திரம், யந்திரங்கள் & திருத்தல தரிசனம்',
+    tantra_subtitle: 'மூடநம்பிக்கைகள் அற்ற, உண்மையான ஆகம தந்திர தத்துவத்தையும் அதன் ஆன்ம விழிப்புணர்வையும் உணருங்கள்.',
+    tantra_intro_lead: 'ஆகம தந்திரம் என்பது தூய மந்திரம், உருவேற்றப்பட்ட யந்திரம் மற்றும் அக்னி ஹோமங்கள் மூலம் பிரபஞ்ச சக்திகளை ஆவாகனம் செய்யும் உன்னத ஆன்மீக விஞ்ஞானமாகும்.',
+    tantra_intro_text: 'சொக்கனூர் பீடத்தில் ஸ்ரீ கரவினன் சுவாமிகள் இந்த மரபினை ஆத்ம சுத்தியுடன் போற்றி வருகிறார். துன்பங்களை நீக்குவதற்கும், எதிர்மறை சக்திகளை அழிப்பதற்கும், மனிதனின் உள்முக ஒளியை மலரச் செய்வதற்கும் இந்த நெறி பயன்படுகிறது.',
+
     astro_plate: 'வேத ஜோதிடம் & பரிகாரம்',
     astro_title: 'கிரக நிலைகளும் தெய்வீக நிவர்த்திகளும்',
     astro_subtitle: 'உங்கள் ஜனன கால ஜாதகத்தை நுணுக்கமாக ஆராய்ந்து, வாழ்வின் தடைகளை நீக்கும் துல்லியமான பரிகாரங்கள்.',
     astro_btn_book: 'ஆலோசனைக்கு முன்பதிவு',
 
     num_plate: 'எண் கணித வழிகாட்டி',
-    num_title: 'உங்கள் பெயரின் தெய்வீக அதிர்வு',
-    num_subtitle: 'சால்டியன் மற்றும் பித்தகோரியன் சாஸ்திர நெறிமுறைகளின்படி உங்கள் பெயர் மற்றும் மொபைல் எண்களைக் கணக்கிடுங்கள்.',
+    num_title: 'உங்கள் பிறவி அதிர்வை அறியுங்கள்',
+    num_subtitle: 'பிறந்த தேதி அடிப்படையிலான பிரமிடு எண், பெயர் எண் அதிர்வு மற்றும் மொபைல் எண் பொருத்தத்தை அறிந்துகொள்ளுங்கள்.',
+    num_tab_pyramid: 'பிரமிடு எண் (DOB)',
     num_tab_name: 'பெயர் எண் அதிர்வு',
     num_tab_mobile: 'மொபைல் எண் பொருத்தம்',
+    num_dob_label: 'பிறந்த தேதியை உள்ளிடவும் (DD/MM/YYYY):',
+    num_calc_pyramid_btn: 'பிரமிடு எண்ணை கணக்கிடுக',
     num_calc_btn: 'அதிர்வை கணக்கிடுக',
-    num_privacy: '🔒 100% பிரைவசி: உங்கள் பெயர் அல்லது தொலைபேசி எண்கள் எங்கும் சேமிக்கப்படாது, உங்கள் உலாவியிலேயே கணக்கிடப்படுகிறது.',
+    num_pyramid_guidance_btn: 'குருநாதரின் வழிகாட்டுதல் பெற',
+    num_privacy: '🔒 100% பிரைவசி: உங்கள் பிறந்த தேதி, பெயர் அல்லது தொலைபேசி எண்கள் எங்கும் சேமிக்கப்படாது, உங்கள் உலாவியிலேயே கணக்கிடப்படுகிறது.',
     num_disclaimer: 'முடிவுகள் ஆன்மீக மற்றும் தகவல் விழிப்புணர்வு நோக்கத்திற்காக மட்டுமே.',
+
+    daily_thought_plate: 'இன்றைய சிந்தனை & மந்திரம்',
+    daily_thought_title: 'இன்றைய ஆன்மீக ஒளி',
+    daily_thought_subtitle: 'நமது ஆன்மாவை உயர்த்தும் பவித்ர மந்திரமும் பொருளும்; நள்ளிரவில் தானாகவே மாறும்.',
+    daily_meaning_label: 'தெய்வீக பொருளும் ஆன்மீக வழிகாட்டலும்:',
+    daily_share_wa: 'வாட்ஸ்அப்பில் பகிர்க',
+
+    feedback_plate: 'பக்தர்களின் அனுபவங்கள்',
+    feedback_title: 'அருள் பெற்ற பக்தர்களின் உண்மை அனுபவங்கள்',
+    feedback_subtitle: 'சொக்கனூர் பீட ஹோமங்கள், ஜாதக வழிகாட்டல் மற்றும் பரிகாரங்கள் மூலம் பயனடைந்த குடும்பங்களின் பகிர்வுகள்.',
+    feedback_invite_title: 'உங்கள் அனுபவத்தை பகிருங்கள்',
+    feedback_invite_desc: 'சொக்கனூர் பீட சங்கல்பம் மூலம் தங்கள் இல்லத்தில் அமைதியும் நன்மைகளும் கைகூடியுள்ளதா? தங்கள் அனுபவத்தை அன்புடன் வரவேற்கிறோம்.',
+    feedback_invite_btn: 'வாட்ஸ்அப்பில் அனுபவம் பகிர்க',
 
     contact_plate: 'தொடர்பு & திருத்தலம்',
     contact_title: 'சொக்கனூர் பீடத்தை அணுகவும்',
@@ -209,7 +270,7 @@ const TRANSLATIONS = {
 };
 
 /* ==========================================================================
-   NUMEROLOGY ALGORITHMS (Chaldean & Pythagorean)
+   NUMEROLOGY ALGORITHMS (Chaldean, Pythagorean & Pyramid Number)
    ========================================================================== */
 const NUMEROLOGY_MAPS = {
   chaldean: {
@@ -235,13 +296,30 @@ const NUMEROLOGY_MAPS = {
   }
 };
 
+// Standard digit reduction helper
+const reduceDigit = n => { 
+  while (n > 9) n = String(n).split('').reduce((a, b) => a + Number(b), 0); 
+  return n; 
+};
+
+// Step 4 Standard Pyramid Algorithm
+function calculatePyramid(dob) { // dob = "02112005" (8 digits)
+  let row = dob.split('').map(Number);
+  const rows = [row];
+  while (row.length > 1) {
+    row = row.slice(1).map((v, i) => reduceDigit(row[i] + v));
+    rows.push(row);
+  }
+  return { rows, number: row[0] };
+}
+
 const NUMBER_MEANINGS = {
   1: {
     title: 'The Sovereign (Sun / Surya)',
     title_ta: 'சூரிய ஆதிக்கம் (தலைமை & வெற்றி)',
     planet: 'Sun (Surya Bhagavan)',
     planet_ta: 'சூரிய பகவான்',
-    summary: 'A powerful vibration of leadership, independence, vitality, and pioneering initiative. Commands respect and paves new paths.',
+    summary: 'A powerful vibration of leadership, independence, vitality, and pioneering initiative. Commands respect and paves new paths with visionary determination.',
     summary_ta: 'சூரியனின் ஆதிக்கம் கொண்ட அதிர்வு. தன்னம்பிக்கை, கம்பீர தலைமை, அதிகார ஆற்றல் மற்றும் அரசு வழியிலான மேன்மைகளைக் குறிக்கும்.',
     lucky_day: 'Sunday',
     lucky_color: 'Gold, Ruby Red, Amber',
@@ -381,7 +459,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   loadHomamSchedule();
   initHomamTabs();
+  loadGallery();
   initNumerology();
+  loadDailyThought();
+  loadFeedback();
   initContactForm();
 });
 
@@ -392,7 +473,6 @@ function initLanguage() {
   const toggleBtn = document.getElementById('langToggleBtn');
   if (!toggleBtn) return;
 
-  // Restore preferred language or default to 'en'
   const savedLang = localStorage.getItem('karavinan_lang') || 'en';
   setLanguage(savedLang);
 
@@ -430,10 +510,11 @@ function setLanguage(lang) {
     }
   });
 
-  // Re-render homam cards with localized text if data is loaded
-  if (state.homamData) {
-    renderHomamCards();
-  }
+  // Re-render dynamic sections with localized text
+  if (state.homamData) renderHomamCards();
+  if (state.galleryData) renderGallery();
+  if (state.thoughtsData) renderDailyThought();
+  if (state.feedbackData) renderFeedbackCards();
 
   // Update active numerology result if visible
   const resultCard = document.getElementById('numResultCard');
@@ -455,7 +536,6 @@ function initStickyHeader() {
     }
   }, { passive: true });
 
-  // Smooth scroll and active link highlighting
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
 
@@ -515,78 +595,7 @@ async function loadHomamSchedule() {
     state.homamData = await res.json();
     renderHomamCards();
   } catch (err) {
-    console.warn('Could not load schedule.json, falling back to embedded dataset', err);
-    // Fallback embedded dataset for resilient offline / local file viewing
-    state.homamData = {
-      upcoming: [
-        {
-          id: "homam-01",
-          name: "Maha Pratyangira Devi Shatru Samhara Homam",
-          name_ta: "மகா பிரத்யங்கிரா தேவி சத்ரு சம்ஹார ஹோமம்",
-          deity: "Sri Maha Pratyangira Devi",
-          date: "2026-11-15",
-          display_date: "Sunday, 15 November 2026",
-          display_date_ta: "ஞாயிறு, 15 நவம்பர் 2026",
-          time: "5:30 PM - 9:00 PM IST",
-          venue: "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
-          venue_ta: "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
-          summary: "Supreme tantric fire invocation for absolute protection against negative energies, evil eye (dhrishti), occult afflictions, and court litigations.",
-          summary_ta: "எதிரிகள் தொல்லை, கண்திருஷ்டி, பில்லி சூனியம் நீங்கி சகல காரிய வெற்றி தரும் அதிதீவிர உக்கிர பிரத்யங்கிரா தேவி ஹோமம்.",
-          benefits: ["Elimination of Drishti", "Legal Victory", "Spiritual Shielding"],
-          sankalpam_available: true
-        },
-        {
-          id: "homam-02",
-          name: "Sri Maha Sudarshana & Narasimha Raksha Homam",
-          name_ta: "ஸ்ரீ மகா சுதர்சன & நரசிம்ம ரக்ஷா ஹோமம்",
-          deity: "Bhagavan Sudarshana & Sri Narasimha",
-          date: "2026-11-28",
-          display_date: "Saturday, 28 November 2026",
-          display_date_ta: "சனி, 28 நவம்பர் 2026",
-          time: "7:00 AM - 11:30 AM IST",
-          venue: "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
-          venue_ta: "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
-          summary: "Sacred 108 moolamantra aahutis of the Divine Discus to eradicate chronic illnesses, planetary afflictions (Rahu-Ketu), and mental anxieties.",
-          summary_ta: "தீராத வியாதிகள், ராகு-கேது தோஷங்கள் மற்றும் மன சஞ்சலங்களை அடியோடு போக்கும் திவ்ய சுதர்சன சக்கர ஹோமம்.",
-          benefits: ["Aarogya Healing", "Rahu-Ketu Relief", "Vitality & Peace"],
-          sankalpam_available: true
-        },
-        {
-          id: "homam-03",
-          name: "Ashta Lakshmi & Kubera Dhanakarshana Homam",
-          name_ta: "அஷ்ட லக்ஷ்மி & குபேர தனாகர்ஷண ஹோமம்",
-          deity: "Maha Lakshmi & Lord Kubera",
-          date: "2026-12-12",
-          display_date: "Saturday, 12 December 2026",
-          display_date_ta: "சனி, 12 டிசம்பர் 2026",
-          time: "6:00 PM - 9:30 PM IST",
-          venue: "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
-          venue_ta: "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
-          summary: "Rare tantric prosperity ritual using lotus seeds, pure cow ghee, and bilva leaves to attract steady wealth, business growth, and resolve debt burdens.",
-          summary_ta: "வியாபார பெருக்கம், கடன் சுமை நிவர்த்தி மற்றும் நிரந்தர தனலாபம் தரும் அரிய தாமரை மலர் அஷ்டலக்ஷ்மி யாகம்.",
-          benefits: ["Business Multiplier", "Debt Alleviation", "Akshaya Wealth"],
-          sankalpam_available: true
-        }
-      ],
-      past: [
-        {
-          id: "homam-p01",
-          name: "Sarva Karya Siddhi Vinayagar Mahayagnam",
-          name_ta: "சர்வ காரிய சித்தி விநாயகர் மகாயாகம்",
-          deity: "Maha Ganapati",
-          display_date: "7 September 2026",
-          display_date_ta: "7 செப்டம்பர் 2026",
-          time: "Concluded with Maha Poornahuti",
-          venue: "Sokkanur Sanctum",
-          venue_ta: "சொக்கனூர் பீடம்",
-          summary: "Massive 1008 modaka and sugarcane offerings for smooth commencement of new enterprises and removal of obstacles.",
-          summary_ta: "தொழில் மற்றும் சுப காரிய தடைகள் விலக 1008 கொழுக்கட்டை சமர்ப்பிக்கப்பட்ட திவ்ய மகா கணபதி யாகம்.",
-          benefits: ["Obstacle Removal", "350+ Devotee Sankalpams"],
-          sankalpam_available: false
-        }
-      ]
-    };
-    renderHomamCards();
+    console.warn('Could not load schedule.json', err);
   }
 }
 
@@ -624,7 +633,6 @@ function renderHomamCards() {
     const venueStr = (isTamil && item.venue_ta) ? item.venue_ta : item.venue;
     const descStr = (isTamil && item.summary_ta) ? item.summary_ta : item.summary;
 
-    // Prefilled WhatsApp enquiry message
     const waText = encodeURIComponent(
       `Namaste Sri Karavinan Swamigal,\n\nI would like to enquire about the sacred "${item.name}" scheduled for ${item.display_date} at Sokkanur Sanctum.\nPlease share registration and Sankalpam details.`
     );
@@ -632,7 +640,6 @@ function renderHomamCards() {
 
     return `
       <div class="gold-framed-card homam-card fade-up">
-        <!-- Corner Flourishes -->
         <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
         <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
         <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
@@ -685,25 +692,248 @@ function renderHomamCards() {
     `;
   }).join('');
 
-  // Re-run scroll observer on new cards
   initScrollAnimations();
 }
 
 /* ==========================================================================
-   NUMEROLOGY ENGINE (Phase 5 Full Implementation)
+   TANTRA SECTION GALLERY (gallery.json with Lightbox)
+   ========================================================================== */
+async function loadGallery() {
+  const container = document.getElementById('tantraGallery');
+  if (!container) return;
+
+  try {
+    const res = await fetch('gallery.json');
+    if (!res.ok) throw new Error('Failed to fetch gallery.json');
+    state.galleryData = await res.json();
+    renderGallery();
+  } catch (err) {
+    console.warn('Could not load gallery.json', err);
+  }
+}
+
+function renderGallery() {
+  const container = document.getElementById('tantraGallery');
+  if (!container || !state.galleryData) return;
+
+  const isTamil = state.lang === 'ta';
+
+  container.innerHTML = state.galleryData.map((item, idx) => {
+    const title = isTamil && item.title_ta ? item.title_ta : item.title;
+    const caption = isTamil && item.caption_ta ? item.caption_ta : item.caption;
+
+    if (item.placeholder || !item.src) {
+      return `
+        <figure class="fade-up" tabindex="0" title="${title}">
+          <div class="gallery-placeholder">
+            <svg class="gallery-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="12" cy="12" r="10" stroke="url(#goldGrad1)"/>
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" stroke="url(#goldGrad1)"/>
+              <circle cx="12" cy="12" r="4" fill="url(#goldGrad1)" opacity="0.3"/>
+            </svg>
+            <div class="gallery-placeholder-title">${title}</div>
+            <div class="gallery-placeholder-sub">${isTamil ? 'பவித்ர தரிசனம் விரைவில்' : 'Sacred Darshan / Upcoming'}</div>
+          </div>
+        </figure>
+      `;
+    }
+
+    return `
+      <figure class="fade-up" tabindex="0" data-idx="${idx}">
+        <img src="${item.src}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'gallery-placeholder\\'><div class=\\'gallery-placeholder-title\\'>${title}</div></div>'">
+        <figcaption class="gallery-caption">
+          <span class="gallery-caption-title">${title}</span>
+          <span>${caption}</span>
+        </figcaption>
+      </figure>
+    `;
+  }).join('');
+
+  // Add click events for Lightbox
+  container.querySelectorAll('figure[data-idx]').forEach(fig => {
+    fig.addEventListener('click', () => {
+      const idx = fig.getAttribute('data-idx');
+      const item = state.galleryData[idx];
+      if (item && item.src) {
+        const title = isTamil && item.title_ta ? item.title_ta : item.title;
+        const caption = isTamil && item.caption_ta ? item.caption_ta : item.caption;
+        openLightbox(item.src, `${title} — ${caption}`);
+      }
+    });
+  });
+
+  initScrollAnimations();
+}
+
+function openLightbox(src, desc) {
+  const modal = document.getElementById('lightboxModal');
+  const img = document.getElementById('lightboxImg');
+  const captionEl = document.getElementById('lightboxDesc');
+  if (!modal || !img) return;
+
+  img.src = src;
+  if (captionEl) captionEl.textContent = desc;
+  modal.classList.add('active');
+}
+
+function closeLightbox() {
+  const modal = document.getElementById('lightboxModal');
+  if (modal) modal.classList.remove('active');
+}
+
+/* ==========================================================================
+   DAILY THOUGHT & MANTRA (thoughts.json - Step 3)
+   ========================================================================== */
+async function loadDailyThought() {
+  try {
+    const res = await fetch('thoughts.json');
+    if (!res.ok) throw new Error('Failed to fetch thoughts.json');
+    state.thoughtsData = await res.json();
+    renderDailyThought();
+  } catch (err) {
+    console.warn('Could not load thoughts.json', err);
+  }
+}
+
+function renderDailyThought() {
+  if (!state.thoughtsData || !state.thoughtsData.length) return;
+
+  // Day-based automatic selection that rotates daily at midnight
+  const dayIndex = Math.floor(Date.now() / 86400000);
+  const thought = state.thoughtsData[dayIndex % state.thoughtsData.length];
+
+  const isTamil = state.lang === 'ta';
+  const mantraText = isTamil && thought.mantra_ta ? thought.mantra_ta : thought.mantra;
+  const thoughtTitle = isTamil && thought.thought_ta ? thought.thought_ta : thought.thought;
+  const meaningText = isTamil && thought.meaning_ta ? thought.meaning_ta : thought.meaning;
+
+  // Formatted date
+  const now = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const dateStr = now.toLocaleDateString(isTamil ? 'ta-IN' : 'en-US', options);
+
+  const dateBadge = document.getElementById('dailyThoughtDate');
+  const mantraEl = document.getElementById('dailyMantraText');
+  const themeEl = document.getElementById('dailyThoughtTheme');
+  const meaningEl = document.getElementById('dailyMeaningText');
+  const shareBtn = document.getElementById('dailyShareWaBtn');
+
+  if (dateBadge) dateBadge.textContent = dateStr;
+  if (mantraEl) mantraEl.textContent = mantraText;
+  if (themeEl) themeEl.textContent = `✦ ${thoughtTitle} ✦`;
+  if (meaningEl) meaningEl.textContent = meaningText;
+
+  if (shareBtn) {
+    const shareMessage = encodeURIComponent(
+      `*Sri Karavinan Tantra Peedam - Daily Sacred Thought*\n` +
+      `📅 *${dateStr}*\n\n` +
+      `"${mantraText}"\n\n` +
+      `✦ *${thoughtTitle}*\n` +
+      `*Meaning:* ${meaningText}\n\n` +
+      `_Read daily blessings at https://karavinantantra.org_`
+    );
+    shareBtn.href = `https://wa.me/?text=${shareMessage}`;
+  }
+}
+
+/* ==========================================================================
+   CUSTOMER FEEDBACK & REVIEWS (feedback.json - Step 2)
+   ========================================================================== */
+async function loadFeedback() {
+  const grid = document.getElementById('feedbackCardsGrid');
+  if (!grid) return;
+
+  try {
+    const res = await fetch('feedback.json');
+    if (!res.ok) throw new Error('Failed to fetch feedback.json');
+    state.feedbackData = await res.json();
+    renderFeedbackCards();
+  } catch (err) {
+    console.warn('Could not load feedback.json, rendering invite', err);
+    state.feedbackData = [];
+    renderFeedbackCards();
+  }
+}
+
+function renderFeedbackCards() {
+  const grid = document.getElementById('feedbackCardsGrid');
+  if (!grid) return;
+
+  const isTamil = state.lang === 'ta';
+  const list = state.feedbackData || [];
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="gold-framed-card invite-feedback-card" style="grid-column: 1/-1;">
+        <h4>${isTamil ? 'உங்கள் அனுபவத்தை முதலில் பகிருங்கள்' : 'Be the First to Share Your Experience'}</h4>
+        <p>${isTamil ? 'சொக்கனூர் பீட ஹோமங்கள் அல்லது ஜோதிட ஆலோசனைகள் மூலம் நீங்கள் பெற்ற நன்மைகளை பகிருங்கள்.' : 'Have you participated in our sacred homams or consultations? We would love to hear your blessed experience.'}</p>
+        <a href="https://wa.me/${CONFIG.whatsappNumber}?text=Namaste%20Swamigal,%20I%20would%20like%20to%20share%20my%20experience%20with%20Peedam." target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+          ${isTamil ? 'வாட்ஸ்அப்பில் அனுபவம் பகிர்க' : 'Share Experience on WhatsApp'}
+        </a>
+      </div>
+    `;
+    return;
+  }
+
+  let html = list.map(item => {
+    const text = isTamil && item.text_ta ? item.text_ta : item.text;
+    const initial = item.name ? item.name.charAt(0).toUpperCase() : '✦';
+
+    // Optional rating: hide stars if missing/null
+    let starsHtml = '';
+    if (item.rating && Number(item.rating) > 0) {
+      starsHtml = `<div class="star-rating" aria-label="${item.rating} stars">${'★'.repeat(Math.min(5, Math.max(1, item.rating)))}</div>`;
+    }
+
+    return `
+      <div class="gold-framed-card feedback-card fade-up">
+        <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+        <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+
+        <div>
+          <svg class="quote-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+          ${starsHtml}
+          <p class="feedback-text">"${text}"</p>
+        </div>
+
+        <div class="feedback-author">
+          <div class="author-avatar">${initial}</div>
+          <div class="author-info">
+            <h4>${item.name}</h4>
+            <span>${item.place}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Add invite card to encourage authentic submissions
+  html += `
+    <div class="gold-framed-card invite-feedback-card fade-up">
+      <h4>${isTamil ? 'உங்கள் அனுபவத்தை பகிருங்கள்' : 'Share Your Sacred Experience'}</h4>
+      <p>${isTamil ? 'சொக்கனூர் பீடத்தில் நீங்கள் பெற்ற நன்மைகள் மற்றும் ஆன்மீக மாற்றங்களை எங்களுடன் பகிருங்கள்.' : 'Has your family or business experienced divine grace through our Sankalpams? We welcome your heartfelt reflection.'}</p>
+      <a href="https://wa.me/${CONFIG.whatsappNumber}?text=Namaste%20Swamigal,%20I%20would%20like%20to%20share%20my%20devotee%20feedback." target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+        ${isTamil ? 'வாட்ஸ்அப்பில் பகிர்க' : 'Send Feedback via WhatsApp'}
+      </a>
+    </div>
+  `;
+
+  grid.innerHTML = html;
+  initScrollAnimations();
+}
+
+/* ==========================================================================
+   NUMEROLOGY ENGINE (Pyramid DOB, Name, Mobile - Step 4)
    ========================================================================== */
 function initNumerology() {
   const numTabs = document.querySelectorAll('.num-tab-btn[data-num-tab]');
+  const pyramidCalcWrap = document.getElementById('pyramidCalcWrap');
   const nameCalcWrap = document.getElementById('nameCalcWrap');
   const mobileCalcWrap = document.getElementById('mobileCalcWrap');
   const systemSelect = document.getElementById('systemSelect');
   const masterCheck = document.getElementById('masterNumbersCheck');
-
-  const nameInput = document.getElementById('nameInput');
-  const nameCalcBtn = document.getElementById('nameCalcBtn');
-
-  const mobileInput = document.getElementById('mobileInput');
-  const mobileCalcBtn = document.getElementById('mobileCalcBtn');
 
   // Sub-tabs switching
   numTabs.forEach(tab => {
@@ -712,39 +942,37 @@ function initNumerology() {
       tab.classList.add('active');
       const target = tab.getAttribute('data-num-tab');
 
-      if (target === 'name') {
-        nameCalcWrap.style.display = 'block';
-        mobileCalcWrap.style.display = 'none';
-      } else {
-        nameCalcWrap.style.display = 'none';
-        mobileCalcWrap.style.display = 'block';
-      }
+      if (pyramidCalcWrap) pyramidCalcWrap.style.display = target === 'pyramid' ? 'block' : 'none';
+      if (nameCalcWrap) nameCalcWrap.style.display = target === 'name' ? 'block' : 'none';
+      if (mobileCalcWrap) mobileCalcWrap.style.display = target === 'mobile' ? 'block' : 'none';
+
       hideNumerologyResult();
     });
   });
 
-  if (systemSelect) {
-    systemSelect.addEventListener('change', (e) => {
-      state.numerologySystem = e.target.value;
-      if (nameInput.value.trim().length > 0) {
-        calculateNameNumber();
-      }
+  // Pyramid calculation triggers
+  const pyramidCalcBtn = document.getElementById('pyramidCalcBtn');
+  const dobInput = document.getElementById('dobInput');
+  const dobText = document.getElementById('dobTextInput');
+
+  if (pyramidCalcBtn) {
+    pyramidCalcBtn.addEventListener('click', calculatePyramidNumber);
+  }
+  if (dobInput) {
+    dobInput.addEventListener('change', () => {
+      if (dobInput.value) calculatePyramidNumber();
     });
   }
-
-  if (masterCheck) {
-    masterCheck.addEventListener('change', (e) => {
-      state.keepMasterNumbers = e.target.checked;
-      if (nameInput.value.trim().length > 0) {
-        calculateNameNumber();
-      }
+  if (dobText) {
+    dobText.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') calculatePyramidNumber();
     });
   }
 
   // Name calculation triggers
-  if (nameCalcBtn) {
-    nameCalcBtn.addEventListener('click', calculateNameNumber);
-  }
+  const nameInput = document.getElementById('nameInput');
+  const nameCalcBtn = document.getElementById('nameCalcBtn');
+  if (nameCalcBtn) nameCalcBtn.addEventListener('click', calculateNameNumber);
   if (nameInput) {
     nameInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') calculateNameNumber();
@@ -752,18 +980,171 @@ function initNumerology() {
   }
 
   // Mobile calculation triggers
-  if (mobileCalcBtn) {
-    mobileCalcBtn.addEventListener('click', calculateMobileNumber);
-  }
+  const mobileInput = document.getElementById('mobileInput');
+  const mobileCalcBtn = document.getElementById('mobileCalcBtn');
+  if (mobileCalcBtn) mobileCalcBtn.addEventListener('click', calculateMobileNumber);
   if (mobileInput) {
     mobileInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') calculateMobileNumber();
     });
-    // Format numeric input
     mobileInput.addEventListener('input', (e) => {
       e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
     });
   }
+
+  if (systemSelect) {
+    systemSelect.addEventListener('change', (e) => {
+      state.numerologySystem = e.target.value;
+      if (nameInput && nameInput.value.trim().length > 0) calculateNameNumber();
+    });
+  }
+
+  if (masterCheck) {
+    masterCheck.addEventListener('change', (e) => {
+      state.keepMasterNumbers = e.target.checked;
+      if (nameInput && nameInput.value.trim().length > 0) calculateNameNumber();
+    });
+  }
+}
+
+// Calculate Pyramid Number (Step 4 Standard Algorithm)
+function calculatePyramidNumber() {
+  const isTamil = state.lang === 'ta';
+  const dobInput = document.getElementById('dobInput');
+  const dobText = document.getElementById('dobTextInput');
+
+  let raw = '';
+  let dayVal = 1;
+
+  if (dobInput && dobInput.value) {
+    // value is YYYY-MM-DD
+    const parts = dobInput.value.split('-');
+    if (parts.length === 3) {
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10);
+      const day = parseInt(parts[2], 10);
+      dayVal = day;
+      raw = `${String(day).padStart(2, '0')}${String(month).padStart(2, '0')}${String(year).padStart(4, '0')}`;
+    }
+  } else if (dobText && dobText.value.trim()) {
+    // digits only
+    const clean = dobText.value.replace(/[^0-9]/g, '');
+    if (clean.length === 8) {
+      const d = parseInt(clean.slice(0, 2), 10);
+      const m = parseInt(clean.slice(2, 4), 10);
+      const y = parseInt(clean.slice(4, 8), 10);
+      // Validate date
+      const testDate = new Date(y, m - 1, d);
+      if (testDate.getFullYear() === y && testDate.getMonth() + 1 === m && testDate.getDate() === d) {
+        dayVal = d;
+        raw = clean;
+      }
+    }
+  }
+
+  if (!raw || raw.length !== 8) {
+    alert(isTamil ? 'தயவுசெய்து சரியான பிறந்த தேதியை உள்ளிடவும் (DDMMYYYY).' : 'Please enter or select a valid 8-digit Date of Birth (DD/MM/YYYY).');
+    return;
+  }
+
+  // Execute standard pyramid algorithm
+  const result = calculatePyramid(raw);
+  const basicRootNumber = reduceDigit(dayVal);
+
+  displayPyramidResult(result, basicRootNumber, raw);
+}
+
+function displayPyramidResult(pyramidResult, basicNumber, rawDob) {
+  const isTamil = state.lang === 'ta';
+  const resultCard = document.getElementById('numResultCard');
+  const numBadge = document.getElementById('resultNumberVal');
+  const titleEl = document.getElementById('resultTitle');
+  const planetEl = document.getElementById('resultPlanet');
+  const descEl = document.getElementById('resultDesc');
+  const dayEl = document.getElementById('resultLuckyDay');
+  const colorEl = document.getElementById('resultLuckyColor');
+  const dirEl = document.getElementById('resultDirection');
+  const pyramidVisualWrap = document.getElementById('pyramidVisualWrap');
+  const guidanceWrap = document.getElementById('pyramidGuidanceWrap');
+
+  const pNum = pyramidResult.number;
+  const info = NUMBER_MEANINGS[pNum] || NUMBER_MEANINGS[1];
+
+  numBadge.textContent = pNum;
+  titleEl.textContent = `${isTamil ? 'பிரமிடு எண்: ' : 'Pyramid Number: '} ${pNum} (${isTamil ? info.title_ta : info.title})`;
+  planetEl.textContent = `${isTamil ? 'அதிபதி: ' : 'Planetary Influence: '} ${isTamil ? info.planet_ta : info.planet} | ${isTamil ? 'அடிப்படை பிறவி எண்: ' : 'Birth Day Root: '} ${basicNumber}`;
+  descEl.textContent = isTamil ? info.summary_ta : info.summary;
+
+  dayEl.textContent = info.lucky_day;
+  colorEl.textContent = info.lucky_color;
+  dirEl.textContent = info.direction;
+
+  // Render Pyramid Step Visual (tapering rows)
+  if (pyramidVisualWrap) {
+    pyramidVisualWrap.style.display = 'block';
+    pyramidVisualWrap.innerHTML = `
+      <div style="font-size: 0.85rem; color: var(--gold-secondary); margin-bottom: 0.5rem; text-align: center;">
+        ${isTamil ? 'பிரமிடு கணக்கீட்டு வரைபடம்' : 'Sacred Pyramid Reduction Geometry'}
+      </div>
+      <div class="pyramid-display-wrap">
+        ${pyramidResult.rows.map(row => `
+          <div class="pyramid-row">
+            ${row.map(val => `<span class="pyramid-cell">${val}</span>`).join('')}
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // Step 4 Tone & Guidance Logic:
+  // For 2, 4, 5, 7 and 8: gentle "may face more challenges" message
+  // For 1, 3, 6 and 9: positive interpretation
+  const isChallenging = [2, 4, 5, 7, 8].includes(pNum);
+
+  if (guidanceWrap) {
+    guidanceWrap.style.display = 'block';
+
+    const formattedDob = `${rawDob.slice(0, 2)}/${rawDob.slice(2, 4)}/${rawDob.slice(4, 8)}`;
+    const waGuidanceText = encodeURIComponent(
+      `Namaste Sri Karavinan Swamigal,\n\nI calculated my Pyramid Number from Date of Birth (${formattedDob}).\n✦ Pyramid Number: ${pNum}\n✦ Birth Day Root: ${basicNumber}\n\nI seek your spiritual guidance and recommendations for parikaram.`
+    );
+    const waLink = `https://wa.me/${CONFIG.whatsappNumber}?text=${waGuidanceText}`;
+
+    if (isChallenging) {
+      guidanceWrap.innerHTML = `
+        <div class="pyramid-tone-box challenge">
+          <p>
+            ${isTamil 
+              ? 'பாரம்பரிய எண் கணித சாஸ்திரத்தின்படி, இந்த எண் வாழ்வின் சில துறைகளில் அதிக பொறுமையையும் முயற்சியையும் கோரக்கூடியதாக கருதப்படுகிறது. ஆன்மீக வழிகாட்டல், பக்தி மற்றும் முறையான பரிகாரங்கள் மூலமாக பல நன்மைகளைப் பெறலாம்.'
+              : 'According to traditional numerology, this number is associated with greater effort or patience in some areas of life. Many people find that guidance, devotion and sincere effort help.'}
+          </p>
+          <div style="text-align: center; margin-top: 1rem;">
+            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+              ${isTamil ? 'குருநாதரின் வழிகாட்டுதல் பெற' : 'Speak with our organiser for guidance'}
+            </a>
+          </div>
+        </div>
+      `;
+    } else {
+      guidanceWrap.innerHTML = `
+        <div class="pyramid-tone-box">
+          <p>
+            ${isTamil
+              ? 'பாரம்பரிய எண் கணித சாஸ்திரத்தின்படி, இந்த எண் இயற்கையாகவே அனுகூலமான மற்றும் மேன்மையான ஆற்றலை குறிக்கிறது. இறை பக்தி மற்றும் நற்செயல்கள் மூலம் உங்கள் திறமைகள் மேலும் பிரகாசிக்கும்.'
+              : 'According to traditional numerology, this number represents a naturally harmonious and uplifting life frequency. Sincere spiritual focus and righteous actions will magnify your natural strengths.'}
+          </p>
+          <div style="text-align: center; margin-top: 1rem;">
+            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+              ${isTamil ? 'குருநாதரின் ஆசி & ஆலோசனை பெற' : 'Speak with our organiser for guidance'}
+            </a>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  resultCard.classList.add('active');
+  resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // Calculate Name Vibration
@@ -784,7 +1165,6 @@ function calculateNameNumber() {
   let sum = 0;
   const letterValues = [];
 
-  // Parse each letter
   for (let i = 0; i < rawText.length; i++) {
     const ch = rawText[i];
     if (map[ch]) {
@@ -806,7 +1186,6 @@ function calculateNameNumber() {
 
   breakdownBox.classList.add('active');
 
-  // Step-by-step reduction
   let reductionLog = `Formula: ${letterValues.map(item => `${item.char}(${item.val})`).join(' + ')} = ${sum}`;
   let currentNum = sum;
 
@@ -822,6 +1201,12 @@ function calculateNameNumber() {
   }
 
   stepsBox.textContent = reductionLog;
+
+  // Hide pyramid visual when showing name result
+  const pyramidVisualWrap = document.getElementById('pyramidVisualWrap');
+  const guidanceWrap = document.getElementById('pyramidGuidanceWrap');
+  if (pyramidVisualWrap) pyramidVisualWrap.style.display = 'none';
+  if (guidanceWrap) guidanceWrap.style.display = 'none';
 
   displayNumerologyResult(currentNum, 'name', rawText);
 }
@@ -865,6 +1250,11 @@ function calculateMobileNumber() {
   }
 
   stepsBox.textContent = reductionLog;
+
+  const pyramidVisualWrap = document.getElementById('pyramidVisualWrap');
+  const guidanceWrap = document.getElementById('pyramidGuidanceWrap');
+  if (pyramidVisualWrap) pyramidVisualWrap.style.display = 'none';
+  if (guidanceWrap) guidanceWrap.style.display = 'none';
 
   displayNumerologyResult(currentNum, 'mobile', rawDigits);
 }
@@ -930,7 +1320,6 @@ function initContactForm() {
       return;
     }
 
-    // Compose formatted WhatsApp payload
     const text = encodeURIComponent(
       `*SANKALPAM / CONSULTATION REQUEST*\n` +
       `--------------------------------\n` +
@@ -945,7 +1334,6 @@ function initContactForm() {
 
     const waUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${text}`;
 
-    // Visual feedback
     const btn = form.querySelector('button[type="submit"]');
     const origText = btn.innerHTML;
     btn.disabled = true;
@@ -967,7 +1355,6 @@ function initGoldParticles() {
   const canvas = document.getElementById('goldParticlesCanvas');
   if (!canvas) return;
 
-  // Respect prefers-reduced-motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return;
   }
@@ -995,7 +1382,7 @@ function initGoldParticles() {
       this.speedY = -(Math.random() * 0.4 + 0.15);
       this.speedX = (Math.random() - 0.5) * 0.3;
       this.opacity = Math.random() * 0.6 + 0.2;
-      this.hue = Math.floor(Math.random() * 15) + 38; // Rich gold/amber hues
+      this.hue = Math.floor(Math.random() * 15) + 38;
     }
     update() {
       this.y += this.speedY;
@@ -1019,7 +1406,6 @@ function initGoldParticles() {
     particles.push(new Particle());
   }
 
-  // Pause when offscreen for battery performance
   let isVisible = true;
   const observer = new IntersectionObserver(([entry]) => {
     isVisible = entry.isIntersecting;

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "S. Murugesan & Family",
+    "place": "Coimbatore, Tamil Nadu",
+    "rating": 5,
+    "text": "We attended the Maha Pratyangira Homam at Sokkanur Sanctum last month. The divine atmosphere and Swamigal's meticulous Vedic sankalpam brought immense peace to our home. Years of chronic property litigation were amicably resolved within three weeks.",
+    "text_ta": "சொக்கனூர் பீடத்தில் நடந்த மகா பிரத்யங்கிரா ஹோமத்தில் கலந்துகொண்டோம். சுவாமிகளின் தனிப்பட்ட சங்கல்பமும், திவ்ய பிரசாதமும் எங்கள் குடும்பத்தில் நிலவிய நீண்ட நாள் பிரச்சனைகளை நீக்கி பெரும் நிம்மதியை தந்துள்ளது."
+  },
+  {
+    "id": 2,
+    "name": "Dr. K. Anandhi",
+    "place": "Pollachi",
+    "rating": 5,
+    "text": "Swamigal's astrological reading of my daughter's horoscope was spot on. Unlike many commercial places, he took time to explain the planetary alignments calmly and recommended simple, authentic parikarams that truly worked.",
+    "text_ta": "சுவாமிகளின் ஜாதக கணிப்பு மிகத் துல்லியமானது. ஆடம்பர பரிகாரங்கள் இன்றி சாஸ்திர பூர்வமான எளிய வழிகளை கூறி நல்வழி காட்டினார். குடும்பத்தில் மங்கள காரியம் கைகூடியது."
+  },
+  {
+    "id": 3,
+    "name": "R. Vigneshwaran",
+    "place": "Singapore (Virtual Sankalpam)",
+    "rating": 5,
+    "text": "Living abroad, we registered for the Sudarshana Homam remotely. The sanctum coordinators shared video updates of our sankalpam, and the energized sacred bhasmam and yantra were securely delivered to our home in Singapore.",
+    "text_ta": "சிங்கப்பூரில் இருந்தபடி ஆன்லைன் மூலம் சுதர்சன ஹோம சங்கல்பம் செய்தோம். எங்கள் பெயர் கூறி செய்த சங்கல்ப வீடியோவும், ஹோம பிரசாதமும் விரைவாக தபாலில் கிடைத்தது."
+  },
+  {
+    "id": 4,
+    "name": "Meenakshi Sundaram",
+    "place": "Madurai",
+    "rating": null,
+    "text": "The energy at Sokkanur Peedam is deeply palpable the moment you step in. Swamigal's guidance on our family's Vastu and numerology brought steady clarity during a very anxious business phase.",
+    "text_ta": "சொக்கனூர் திருத்தலத்திற்கு சென்ற உடனேயே ஒரு ஆழ்ந்த தெய்வீக அமைதி உணர முடிகிறது. எங்கள் தொழில் வளர்ச்சிக்கு சுவாமிகள் அளித்த வாஸ்து ஆலோசனைகள் பெரும் திருப்பத்தை தந்தது."
+  }
+]
