@@ -1,0 +1,132 @@
+{
+  "upcoming": [
+    {
+      "id": "homam-01",
+      "name": "Maha Pratyangira Devi Shatru Samhara Homam",
+      "name_ta": "மகா பிரத்யங்கிரா தேவி சத்ரு சம்ஹார ஹோமம்",
+      "deity": "Sri Maha Pratyangira Devi",
+      "date": "2026-11-15",
+      "display_date": "Sunday, 15 November 2026",
+      "display_date_ta": "ஞாயிறு, 15 நவம்பர் 2026",
+      "time": "5:30 PM - 9:00 PM IST",
+      "venue": "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
+      "venue_ta": "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
+      "summary": "Supreme tantric fire invocation for absolute protection against negative energies, evil eye (dhrishti), occult afflictions, and court litigations.",
+      "summary_ta": "எதிரிகள் தொல்லை, கண்திருஷ்டி, பில்லி சூனியம் நீங்கி சகல காரிய வெற்றி தரும் அதிதீவிர உக்கிர பிரத்யங்கிரா தேவி ஹோமம்.",
+      "benefits": [
+        "Elimination of Drishti & Negativity",
+        "Victory over Legal Hurdles",
+        "Spiritual Shielding for Family"
+      ],
+      "sankalpam_available": true,
+      "featured": true
+    },
+    {
+      "id": "homam-02",
+      "name": "Sri Maha Sudarshana & Narasimha Raksha Homam",
+      "name_ta": "ஸ்ரீ மகா சுதர்சன & நரசிம்ம ரக்ஷா ஹோமம்",
+      "deity": "Bhagavan Sudarshana & Sri Lakshmi Narasimha",
+      "date": "2026-11-28",
+      "display_date": "Saturday, 28 November 2026",
+      "display_date_ta": "சனி, 28 நவம்பர் 2026",
+      "time": "7:00 AM - 11:30 AM IST",
+      "venue": "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
+      "venue_ta": "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
+      "summary": "Sacred 108 moolamantra aahutis of the Divine Discus to eradicate chronic illnesses, planetary afflictions (Rahu-Ketu), and mental anxieties.",
+      "summary_ta": "தீராத வியாதிகள், ராகு-கேது தோஷங்கள் மற்றும் மன சஞ்சலங்களை அடியோடு போக்கும் திவ்ய சுதர்சன சக்கர ஹோமம்.",
+      "benefits": [
+        "Aarogya & Health Healing",
+        "Relief from Graha Doshas",
+        "Peace of Mind & Vitality"
+      ],
+      "sankalpam_available": true,
+      "featured": false
+    },
+    {
+      "id": "homam-03",
+      "name": "Ashta Lakshmi & Kubera Dhanakarshana Homam",
+      "name_ta": "அஷ்ட லக்ஷ்மி & குபேர தனாகர்ஷண ஹோமம்",
+      "deity": "Maha Lakshmi & Lord Kubera",
+      "date": "2026-12-12",
+      "display_date": "Saturday, 12 December 2026",
+      "display_date_ta": "சனி, 12 டிசம்பர் 2026",
+      "time": "6:00 PM - 9:30 PM IST",
+      "venue": "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
+      "venue_ta": "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
+      "summary": "Rare tantric prosperity ritual using lotus seeds, pure cow ghee, and bilva leaves to attract steady wealth, business growth, and resolve debt burdens.",
+      "summary_ta": "வியாபார பெருக்கம், கடன் சுமை நிவர்த்தி மற்றும் நிரந்தர தனலாபம் தரும் அரிய தாமரை மலர் அஷ்டலக்ஷ்மி யாகம்.",
+      "benefits": [
+        "Business Multiplier & Sales Surge",
+        "Debt Alleviation (Rina Vimochana)",
+        "Akshaya Prosperity at Home"
+      ],
+      "sankalpam_available": true,
+      "featured": true
+    },
+    {
+      "id": "homam-04",
+      "name": "Maha Rudra & Kaal Bhairava Purnima Homam",
+      "name_ta": "மகா ருத்ர & கால பைரவர் பௌர்ணமி ஹோமம்",
+      "deity": "Lord Kaal Bhairava & Shiva",
+      "date": "2026-12-24",
+      "display_date": "Thursday, 24 December 2026",
+      "display_date_ta": "வியாழன், 24 டிசம்பர் 2026",
+      "time": "8:30 PM - Midnight IST",
+      "venue": "Sokkanur Maha Peedam Sanctum, Kinathukadavu",
+      "venue_ta": "சொக்கனூர் மகா பீடம், கிணத்துக்கடவு",
+      "summary": "Midnight tantric sadhana on the sacred Purnima night invoking Kaal Bhairava for master of time, fearlessness, and neutralization of past karmic debts.",
+      "summary_ta": "பௌர்ணமி நடுநிசி கால பைரவர் யாகம். கால பயம் நீக்கி, பூர்வ ஜென்ம கர்ம வினைகளை சாம்பலாக்கும் மகா சக்தி வாய்ந்தது.",
+      "benefits": [
+        "Destruction of Deep Karmic Blocks",
+        "Fearlessness & Mental Mastery",
+        "Auspicious Planetary Alignment"
+      ],
+      "sankalpam_available": true,
+      "featured": false
+    }
+  ],
+  "past": [
+    {
+      "id": "homam-p01",
+      "name": "Sarva Karya Siddhi Vinayagar Mahayagnam",
+      "name_ta": "சர்வ காரிய சித்தி விநாயகர் மகாயாகம்",
+      "deity": "Maha Ganapati",
+      "date": "2026-09-07",
+      "display_date": "7 September 2026",
+      "display_date_ta": "7 செப்டம்பர் 2026",
+      "time": "Concluded with Poornahuti",
+      "venue": "Sokkanur Sanctum",
+      "venue_ta": "சொக்கனூர் பீடம்",
+      "summary": "Massive 1008 modaka and sugarcane offerings for smooth commencement of new enterprises and removal of obstacles.",
+      "summary_ta": "தொழில் மற்றும் சுப காரிய தடைகள் விலக 1008 கொழுக்கட்டை சமர்ப்பிக்கப்பட்ட திவ்ய மகா கணபதி யாகம்.",
+      "benefits": [
+        "Obstacle Removal",
+        "New Venture Blessings",
+        "Over 350 Sankalpams Performed"
+      ],
+      "sankalpam_available": false,
+      "featured": false
+    },
+    {
+      "id": "homam-p02",
+      "name": "Navagraha Shanti & Chandi Parayana Yagnam",
+      "name_ta": "நவகிரக சாந்தி & சண்டி பாராயண யாகம்",
+      "deity": "Navagrahas & Devi Durga",
+      "date": "2026-08-18",
+      "display_date": "18 August 2026",
+      "display_date_ta": "18 ஆகஸ்ட் 2026",
+      "time": "Concluded with Poornahuti",
+      "venue": "Sokkanur Sanctum",
+      "venue_ta": "சொக்கனூர் பீடம்",
+      "summary": "Nine planetary sacred fires lit simultaneously with 700 verses of Sri Durga Saptashati parayanam.",
+      "summary_ta": "ஒரே நேரத்தில் ஒன்பது கிரக ஹோம குண்டங்கள் அமைக்கப்பட்டு நடத்தப்பட்ட சண்டி மகா யாகம்.",
+      "benefits": [
+        "Planetary Balance",
+        "Family Harmony",
+        "Sarva Dosha Shanti"
+      ],
+      "sankalpam_available": false,
+      "featured": false
+    }
+  ]
+}

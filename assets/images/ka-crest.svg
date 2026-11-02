@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Gold Linear Gradients -->
+    <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8A6A1F" />
+      <stop offset="25%" stop-color="#D4AF37" />
+      <stop offset="50%" stop-color="#F6D77A" />
+      <stop offset="75%" stop-color="#E5B842" />
+      <stop offset="100%" stop-color="#8A6A1F" />
+    </linearGradient>
+
+    <linearGradient id="goldGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F6D77A" />
+      <stop offset="30%" stop-color="#C9992B" />
+      <stop offset="70%" stop-color="#FFE8A3" />
+      <stop offset="100%" stop-color="#735213" />
+    </linearGradient>
+
+    <radialGradient id="goldRadial" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF6DC" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#F6D77A" stop-opacity="0.8" />
+      <stop offset="80%" stop-color="#C9992B" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#8A6A1F" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="centerDarkGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#24180A" stop-opacity="0.9" />
+      <stop offset="70%" stop-color="#140D05" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1" />
+    </radialGradient>
+
+    <!-- Filters for Regal Emboss and Glow -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="royalShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.8" />
+    </filter>
+  </defs>
+
+  <!-- Outer Dark Backing Circle -->
+  <circle cx="250" cy="250" r="240" fill="url(#centerDarkGlow)" stroke="url(#goldGrad1)" stroke-width="3" filter="url(#royalShadow)" />
+
+  <!-- Outer Decorative Ring with Dots/Studs -->
+  <circle cx="250" cy="250" r="230" fill="none" stroke="url(#goldGrad2)" stroke-width="1.5" stroke-dasharray="4,6" />
+  <circle cx="250" cy="250" r="222" fill="none" stroke="url(#goldGrad1)" stroke-width="2" />
+  
+  <!-- Outer Lotus / Filigree Petals (16 Points) -->
+  <g stroke="url(#goldGrad1)" fill="none" stroke-width="1.8" opacity="0.85">
+    <path d="M250,28 C265,55 285,55 285,75 C270,75 250,55 250,28 Z" />
+    <path d="M250,472 C265,445 285,445 285,425 C270,425 250,445 250,472 Z" />
+    <path d="M28,250 C55,265 55,285 75,285 C75,270 55,250 28,250 Z" />
+    <path d="M472,250 C445,265 445,285 425,285 C425,270 445,250 472,250 Z" />
+    <path d="M93,93 C115,110 130,100 145,115 C130,125 110,115 93,93 Z" />
+    <path d="M407,93 C385,110 370,100 355,115 C370,125 390,115 407,93 Z" />
+    <path d="M93,407 C115,390 130,400 145,385 C130,375 110,385 93,407 Z" />
+    <path d="M407,407 C385,390 370,400 355,385 C370,375 390,385 407,407 Z" />
+  </g>
+
+  <!-- Sacred Tantric Yantra Stars (Interlocking Triangles) -->
+  <polygon points="250,75 395,335 105,335" fill="none" stroke="url(#goldGrad2)" stroke-width="1.5" opacity="0.4" />
+  <polygon points="250,385 395,125 105,125" fill="none" stroke="url(#goldGrad2)" stroke-width="1.5" opacity="0.4" />
+
+  <!-- Inner Ornate Frame -->
+  <circle cx="250" cy="250" r="175" fill="none" stroke="url(#goldGrad1)" stroke-width="3" />
+  <circle cx="250" cy="250" r="168" fill="none" stroke="url(#goldGrad2)" stroke-width="1" stroke-dasharray="2,5" />
+  <circle cx="250" cy="250" r="162" fill="none" stroke="url(#goldGrad1)" stroke-width="1.5" />
+
+  <!-- Ambient Radiant Glow -->
+  <circle cx="250" cy="220" r="110" fill="url(#goldRadial)" opacity="0.25" />
+
+  <!-- Royal Crown Above Lion -->
+  <g id="crown" transform="translate(250, 115) scale(0.65)" filter="url(#royalShadow)">
+    <!-- Base band -->
+    <path d="M -70,25 C -30,30 30,30 70,25 L 65,36 C 30,42 -30,42 -65,36 Z" fill="url(#goldGrad1)" stroke="#5A4010" stroke-width="1"/>
+    <!-- Jewels on band -->
+    <circle cx="-45" cy="30" r="3" fill="#B3141B" />
+    <circle cx="-15" cy="32" r="3.5" fill="#FFF6DC" />
+    <circle cx="15" cy="32" r="3.5" fill="#FFF6DC" />
+    <circle cx="45" cy="30" r="3" fill="#B3141B" />
+    <circle cx="0" cy="33" r="4" fill="#B3141B" />
+    <!-- Crown Peaks -->
+    <path d="M -65,25 L -75,-15 L -40,8 L 0,-32 L 40,8 L 75,-15 L 65,25 Z" fill="url(#goldGrad2)" stroke="url(#goldGrad1)" stroke-width="1.5"/>
+    <!-- Crown Orbs and Cross -->
+    <circle cx="-75" cy="-18" r="4" fill="url(#goldGrad1)"/>
+    <circle cx="75" cy="-18" r="4" fill="url(#goldGrad1)"/>
+    <circle cx="-40" cy="5" r="3" fill="url(#goldGrad1)"/>
+    <circle cx="40" cy="5" r="3" fill="url(#goldGrad1)"/>
+    <!-- Cross on Centre Peak -->
+    <path d="M -2,-42 H 2 V -32 H -2 Z M -6,-38 H 6 V -36 H -6 Z" fill="url(#goldGrad1)"/>
+  </g>
+
+  <!-- Majestic Lion Head Silhouette / Vector Art -->
+  <g id="lionHead" transform="translate(250, 205) scale(1.1)" filter="url(#goldGlow)">
+    <!-- Mane Tufts & Contours -->
+    <path d="M -20,-50 C 0,-60 30,-50 45,-30 C 58,-12 65,15 50,42 C 40,60 25,72 5,82 C -15,75 -35,62 -48,42 C -60,20 -55,-15 -42,-35 C -35,-45 -25,-50 -20,-50 Z" 
+          fill="none" stroke="url(#goldGrad1)" stroke-width="2.2" />
+    
+    <!-- Stylized Lion Mane Flames -->
+    <path d="M -30,-40 C -15,-30 -10,-10 -25,10 C -35,22 -25,40 -10,55" fill="none" stroke="url(#goldGrad2)" stroke-width="2" />
+    <path d="M 30,-40 C 15,-30 10,-10 25,10 C 35,22 25,40 10,55" fill="none" stroke="url(#goldGrad2)" stroke-width="2" />
+    
+    <!-- Forehead & Eyebrow Structure -->
+    <path d="M -24,-18 C -15,-22 -5,-20 0,-15 C 5,-20 15,-22 24,-18" fill="none" stroke="url(#goldGrad1)" stroke-width="2.5" />
+    
+    <!-- Eyes -->
+    <path d="M -20,-12 C -15,-16 -10,-12 -8,-10 C -12,-8 -17,-8 -20,-12 Z" fill="url(#goldGrad2)" />
+    <path d="M 20,-12 C 15,-16 10,-12 8,-10 C 12,-8 17,-8 20,-12 Z" fill="url(#goldGrad2)" />
+    
+    <!-- Bridge of Nose and Snout -->
+    <path d="M -7,-12 L -5,12 L -12,18 C -6,22 6,22 12,18 L 5,12 L 7,-12" fill="none" stroke="url(#goldGrad1)" stroke-width="2" />
+    
+    <!-- Nose Leather (Tantra Trishul Hint) -->
+    <polygon points="0,12 -8,19 8,19" fill="url(#goldGrad2)" stroke="url(#goldGrad1)" stroke-width="1" />
+    <line x1="0" y1="19" x2="0" y2="27" stroke="url(#goldGrad1)" stroke-width="2" />
+
+    <!-- Whiskers & Mouth -->
+    <path d="M -15,26 C -8,29 0,27 0,27 C 0,27 8,29 15,26" fill="none" stroke="url(#goldGrad1)" stroke-width="2" />
+    <path d="M -10,30 C -5,35 5,35 10,30" fill="none" stroke="url(#goldGrad2)" stroke-width="1.8" />
+    
+    <!-- Chin & Beard Tufts -->
+    <path d="M -7,35 L 0,48 L 7,35 Z" fill="url(#goldGrad1)" />
+    <path d="M -18,36 C -12,46 -4,55 0,62 C 4,55 12,46 18,36" fill="none" stroke="url(#goldGrad2)" stroke-width="2" />
+
+    <!-- Noble Cheeks & Whisker Dots -->
+    <circle cx="-10" cy="22" r="1.2" fill="#F6D77A" />
+    <circle cx="-14" cy="23" r="1.2" fill="#F6D77A" />
+    <circle cx="-11" cy="25" r="1.2" fill="#F6D77A" />
+    <circle cx="10" cy="22" r="1.2" fill="#F6D77A" />
+    <circle cx="14" cy="23" r="1.2" fill="#F6D77A" />
+    <circle cx="11" cy="25" r="1.2" fill="#F6D77A" />
+  </g>
+
+  <!-- Royal Ribbon Plate & "KA" Monogram -->
+  <g id="kaMonogram" transform="translate(250, 360)">
+    <!-- Ornate Scroll/Banner Behind Monogram -->
+    <path d="M -110,-12 C -60,-24 60,-24 110,-12 C 125,-8 130,12 115,22 C 70,32 -70,32 -115,22 C -130,12 -125,-8 -110,-12 Z" 
+          fill="#1A1208" stroke="url(#goldGrad1)" stroke-width="2" filter="url(#royalShadow)" />
+    <path d="M -105,-7 C -55,-19 55,-19 105,-7" fill="none" stroke="url(#goldGrad2)" stroke-width="1" stroke-dasharray="3,3" />
+
+    <!-- Flanking Fleur-de-lis / Trisula Accents -->
+    <g transform="translate(-120, 5) scale(0.35)" fill="url(#goldGrad1)">
+      <path d="M0,-25 C10,-15 15,0 0,25 C-15,0 -10,-15 0,-25 Z" />
+      <path d="M-5,10 C-20,0 -30,15 -10,25 C-5,20 -5,15 -5,10 Z" />
+      <path d="M5,10 C20,0 30,15 10,25 C5,20 5,15 5,10 Z" />
+    </g>
+    <g transform="translate(120, 5) scale(0.35) scale(-1, 1)" fill="url(#goldGrad1)">
+      <path d="M0,-25 C10,-15 15,0 0,25 C-15,0 -10,-15 0,-25 Z" />
+      <path d="M-5,10 C-20,0 -30,15 -10,25 C-5,20 -5,15 -5,10 Z" />
+      <path d="M5,10 C20,0 30,15 10,25 C5,20 5,15 5,10 Z" />
+    </g>
+
+    <!-- Grand "KA" Letters Intertwined -->
+    <text x="-2" y="16" 
+          font-family="'Cinzel', 'Playfair Display', Georgia, serif" 
+          font-size="44" 
+          font-weight="900" 
+          letter-spacing="5" 
+          text-anchor="middle" 
+          fill="url(#goldGrad1)" 
+          stroke="#4D350B" 
+          stroke-width="1.2"
+          filter="url(#goldGlow)">
+      KA
+    </text>
+  </g>
+
+  <!-- Bottom Sacred Subtitle / Mantra Band -->
+  <text x="250" y="425" 
+        font-family="'Cinzel', 'Playfair Display', serif" 
+        font-size="12" 
+        font-weight="700" 
+        letter-spacing="6" 
+        text-anchor="middle" 
+        fill="url(#goldGrad2)">
+    KARAVINAN TANTRA
+  </text>
+  <text x="250" y="442" 
+        font-family="'Outfit', sans-serif" 
+        font-size="9" 
+        font-weight="600" 
+        letter-spacing="4" 
+        text-anchor="middle" 
+        fill="#C9992B">
+    SOKKANUR • SANKALPAM
+  </text>
+</svg>
