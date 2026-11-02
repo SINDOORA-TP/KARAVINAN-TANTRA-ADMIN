@@ -757,7 +757,7 @@ async function loadGallery() {
   if (!container) return;
 
   // 1. Check 10-minute sessionStorage cache to save API quota and speed up the page (Step 3)
-  const CACHE_KEY = 'tantra_gallery_cache';
+  const CACHE_KEY = 'tantra_gallery_cache_v2';
   const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
   try {
     const cached = sessionStorage.getItem(CACHE_KEY);
@@ -797,7 +797,7 @@ async function loadGallery() {
     try {
       const q = encodeURIComponent(`'${folderId}' in parents and trashed=false`);
       const url = `https://www.googleapis.com/drive/v3/files?q=${q}` +
-                  `&fields=files(id,name,description,mimeType)&orderBy=createdTime desc&pageSize=100&key=${apiKey}`;
+                  `&fields=files(id,name,description,mimeType,thumbnailLink,webContentLink)&orderBy=createdTime desc&pageSize=100&key=${apiKey}`;
       const res = await fetch(url);
       if (res.ok) {
         const { files } = await res.json();
@@ -814,9 +814,23 @@ async function loadGallery() {
               const defaultTitle = f.name.replace(/\.[^.]+$/, '');
               const defaultCaption = f.description || '';
               const ov = overrides[f.id] || {};
+
+              // Multi-tier reliable Google Drive image URL resolution:
+              // 1. High-resolution signed thumbnailLink (=s1200) from Google Drive
+              // 2. High-res thumbnail endpoint as fallback
+              let primarySrc = '';
+              const fallbackSrc = `https://drive.google.com/thumbnail?id=${f.id}&sz=w1200`;
+
+              if (f.thumbnailLink) {
+                primarySrc = f.thumbnailLink.replace(/=s\d+$/, '=s1200');
+              } else {
+                primarySrc = fallbackSrc;
+              }
+
               return {
                 id: f.id,
-                src: `https://lh3.googleusercontent.com/d/${f.id}`,
+                src: primarySrc,
+                fallbackSrc: fallbackSrc,
                 title: ov.title !== undefined && ov.title !== '' ? ov.title : defaultTitle,
                 caption: ov.caption !== undefined && ov.caption !== '' ? ov.caption : defaultCaption,
                 placeholder: false
@@ -885,7 +899,7 @@ function renderGallery() {
 
     return `
       <figure class="fade-up" tabindex="0" data-idx="${idx}">
-        <img src="${item.src}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'gallery-placeholder\\'><div class=\\'gallery-placeholder-title\\'>${title}</div></div>'">
+        <img src="${item.src}" alt="${title}" loading="lazy" referrerpolicy="no-referrer" onerror="if(this.src!=='${item.fallbackSrc}'){this.src='${item.fallbackSrc}';}else{this.parentElement.innerHTML='<div class=\\'gallery-placeholder\\'><div class=\\'gallery-placeholder-title\\'>${title}</div></div>';}">
         <figcaption class="gallery-caption">
           <span class="gallery-caption-title">${title}</span>
           <span>${caption}</span>
@@ -916,6 +930,7 @@ function openLightbox(src, desc) {
   const captionEl = document.getElementById('lightboxDesc');
   if (!modal || !img) return;
 
+  img.referrerPolicy = 'no-referrer';
   img.src = src;
   if (captionEl) captionEl.textContent = desc;
   modal.classList.add('active');
