@@ -171,9 +171,11 @@ async function initGalleryManager() {
   }
 
   if (refreshPreviewBtn) {
-    refreshPreviewBtn.addEventListener('click', () => {
+    refreshPreviewBtn.addEventListener('click', async () => {
       ADMIN_STATE.galleryConfig.folderId = parseDriveFolderId(folderInput ? folderInput.value.trim() : '');
       ADMIN_STATE.galleryConfig.apiKey = apiKeyInput ? apiKeyInput.value.trim() : '';
+      ADMIN_STATE.galleryConfig.lastUpdated = new Date().toISOString();
+      await persistGalleryConfig();
       fetchDrivePhotosAndRender();
     });
   }
@@ -293,8 +295,9 @@ async function fetchDrivePhotosAndRender() {
   `;
 
   try {
-    const q = encodeURIComponent(`'${folderId}' in parents and mimeType contains 'image/' and trashed=false`);
-    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,description)&orderBy=createdTime desc&pageSize=60&key=${apiKey}`;
+    // Robust query: query all files in parent folder, filter images client-side to prevent mimeType indexing delay
+    const q = encodeURIComponent(`'${folderId}' in parents and trashed=false`);
+    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,description,mimeType)&orderBy=createdTime desc&pageSize=100&key=${apiKey}`;
 
     const res = await fetch(url);
     if (!res.ok) {
@@ -304,15 +307,52 @@ async function fetchDrivePhotosAndRender() {
     }
 
     const data = await res.json();
-    const files = data.files || [];
+    const rawFiles = data.files || [];
+
+    // Filter image files (by mimeType or extension)
+    const files = rawFiles.filter(f => {
+      if (f.mimeType && f.mimeType.startsWith('image/')) return true;
+      return /\.(jpe?g|png|webp|gif|bmp|avif)$/i.test(f.name || '');
+    });
+
     ADMIN_STATE.driveFiles = files;
 
     if (files.length === 0) {
-      if (statusText) statusText.textContent = 'The Google Drive folder is currently empty. Upload photos to Drive and refresh.';
+      // Diagnostic check: Test folder metadata permission
+      let accessDiagnosis = '';
+      try {
+        const checkUrl = `https://www.googleapis.com/drive/v3/files/${folderId}?fields=id,name,shared&key=${apiKey}`;
+        const checkRes = await fetch(checkUrl);
+        if (!checkRes.ok) {
+          accessDiagnosis = `Google Drive returned error (${checkRes.status}). This usually indicates the folder is still set to "Restricted" and not accessible via public API Key.`;
+        } else {
+          const fMeta = await checkRes.json();
+          if (fMeta.shared === false) {
+            accessDiagnosis = `Folder "${fMeta.name || 'karavinan images'}" is currently private (shared: false).`;
+          }
+        }
+      } catch (diagErr) {}
+
+      if (statusText) {
+        statusText.innerHTML = `<span style="color: #ffb347;">⚠️ Google Drive returned 0 files for this folder ID.</span>`;
+      }
+
       container.innerHTML = `
-        <div class="preview-empty-state">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <p>No images found in this folder. Upload JPG/PNG photos to the Drive folder and click <strong>"Refresh Live Preview"</strong>.</p>
+        <div class="preview-empty-state" style="border-color: #F6D77A; text-align: left; padding: 2rem 2.25rem; max-width: 720px; margin: 0 auto;">
+          <h4 style="color: var(--gold-primary); font-family: var(--font-heading); margin: 0 0 0.85rem; font-size: 1.15rem;">
+            ✦ How to Make Your Google Drive Photos Appear:
+          </h4>
+          <p style="color: #FFF6DC; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+            Your folder contains files, but Google Drive requires the folder's <strong>General Access</strong> to be set to <strong>"Anyone with the link can view"</strong> so the API Key can read them:
+          </p>
+          <ol style="color: var(--cream); font-size: 0.9rem; line-height: 1.8; margin-left: 1.25rem; margin-bottom: 1.5rem;">
+            <li>In Google Drive, click the arrow next to <strong>"karavinan images ▾"</strong> (or right-click the folder).</li>
+            <li>Click <strong>Share</strong> &rarr; <strong>Share</strong>.</li>
+            <li>Under <strong>General access</strong>, change <strong>"Restricted"</strong> to <strong>"Anyone with the link"</strong> (Role: <strong>Viewer</strong>).</li>
+            <li>Click <strong>Done</strong>.</li>
+            <li>Return here and click <button type="button" class="btn-gold" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; margin: 0 4px;" onclick="document.getElementById('refreshLivePreviewBtn').click()">Refresh Live Preview</button>.</li>
+          </ol>
+          ${accessDiagnosis ? `<div style="background: rgba(179,20,27,0.25); border: 1px solid var(--receipt-red); padding: 0.75rem 1rem; border-radius: 4px; font-size: 0.85rem; color: #ffc2c5;"><strong>Diagnostic:</strong> ${accessDiagnosis}</div>` : ''}
         </div>
       `;
       if (saveAllBtn) saveAllBtn.style.display = 'none';

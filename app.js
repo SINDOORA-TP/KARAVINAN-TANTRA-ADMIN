@@ -750,17 +750,22 @@ async function loadGallery() {
   // 3. If Google Drive configured, fetch from Google Drive API v3 (Step 3)
   if (folderId && apiKey) {
     try {
-      const q = encodeURIComponent(`'${folderId}' in parents and mimeType contains 'image/' and trashed=false`);
+      const q = encodeURIComponent(`'${folderId}' in parents and trashed=false`);
       const url = `https://www.googleapis.com/drive/v3/files?q=${q}` +
-                  `&fields=files(id,name,description)&orderBy=createdTime desc&pageSize=60&key=${apiKey}`;
+                  `&fields=files(id,name,description,mimeType)&orderBy=createdTime desc&pageSize=100&key=${apiKey}`;
       const res = await fetch(url);
       if (res.ok) {
         const { files } = await res.json();
         if (Array.isArray(files) && files.length > 0) {
-          // Filter out admin-hidden files and apply title/caption overrides
-          const items = files
-            .filter(f => !hiddenList.includes(f.id))
-            .map(f => {
+          // Filter image files (by mimeType or extension) and respect hidden list
+          const imageFiles = files.filter(f => {
+            if (hiddenList.includes(f.id)) return false;
+            if (f.mimeType && f.mimeType.startsWith('image/')) return true;
+            return /\.(jpe?g|png|webp|gif|bmp|avif)$/i.test(f.name || '');
+          });
+
+          if (imageFiles.length > 0) {
+            const items = imageFiles.map(f => {
               const defaultTitle = f.name.replace(/\.[^.]+$/, '');
               const defaultCaption = f.description || '';
               const ov = overrides[f.id] || {};
@@ -773,14 +778,15 @@ async function loadGallery() {
               };
             });
 
-          if (items.length > 0) {
-            state.galleryData = items;
-            // Cache in sessionStorage for 10 minutes
-            try {
-              sessionStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), items }));
-            } catch (e) {}
-            renderGallery();
-            return;
+            if (items.length > 0) {
+              state.galleryData = items;
+              // Cache in sessionStorage for 10 minutes
+              try {
+                sessionStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), items }));
+              } catch (e) {}
+              renderGallery();
+              return;
+            }
           }
         }
       }
