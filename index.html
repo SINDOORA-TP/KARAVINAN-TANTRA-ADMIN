@@ -592,33 +592,70 @@
           <!-- Inline Error for Name -->
           <div id="nameInlineError" class="numerology-inline-error" style="display: none;"></div>
 
-          <!-- Name Result Container (Final Results Only - Hidden until Check Result clicked) -->
+          <!-- Name Result Container (Three-Part Result: Hidden until Check Result clicked) -->
           <div id="nameResultsWrap" class="numerology-result-wrap" style="display: none;">
-            <!-- Red Banner Plate -->
-            <div class="unified-result-plate">
-              <div class="result-plate-item">
+            
+            <!-- Part 1: Name Number Card -->
+            <div class="num-three-card num-fade-1" id="partNameCard">
+              <div class="unified-single-plate">
                 <span class="result-plate-label" data-i18n="num_name_num_label">Name Number</span>
                 <span class="result-plate-num" id="bannerNameNum">-</span>
               </div>
-              <div class="result-plate-divider"></div>
-              <div class="result-plate-item">
+              <div class="unified-interpretation-panel">
+                <h3 id="nameCardHeading">Name Number Interpretation</h3>
+                <div class="interp-planet" id="nameCardPlanet">Planetary Influence: -</div>
+                <div id="nameCardToneBox"></div>
+              </div>
+            </div>
+
+            <!-- Part 2: Pyramid Number Card -->
+            <div class="num-three-card num-fade-2" id="partPyramidCard">
+              <div class="unified-single-plate">
                 <span class="result-plate-label" data-i18n="num_pyramid_num_label">Pyramid Number</span>
                 <span class="result-plate-num" id="bannerPyramidNum">-</span>
               </div>
-            </div>
-
-            <!-- Cream Result Panel -->
-            <div class="unified-interpretation-panel" id="nameInterpPanel">
-              <h3 id="nameInterpHeading">Numerology Result</h3>
-              <div class="interp-planet" id="nameInterpPlanet">Planetary Influence: -</div>
-              <div id="nameInterpToneBox"></div>
-
-              <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="#" id="nameWaGuidanceBtn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-i18n="num_guidance_btn">
-                  Speak with our organiser for guidance
-                </a>
+              <div class="unified-interpretation-panel">
+                <h3 id="pyramidCardHeading">Pyramid Pinnacle Interpretation</h3>
+                <div class="interp-planet" id="pyramidCardPlanet">Planetary Influence: -</div>
+                <div id="pyramidCardToneBox"></div>
               </div>
             </div>
+
+            <!-- Part 3: Overall Conclusion Card (Larger frame with ornamental corners and soft gold glow) -->
+            <div class="num-conclusion-card num-fade-3" id="partConclusionCard">
+              <svg class="corner-flourish corner-tl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+              <svg class="corner-flourish corner-tr" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+              <svg class="corner-flourish corner-bl" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+              <svg class="corner-flourish corner-br" viewBox="0 0 20 20" fill="none"><path d="M0 0 H18 V4 H4 V18 H0 Z" fill="url(#goldGrad1)"/></svg>
+              
+              <div class="conclusion-content">
+                <div class="conclusion-badge" data-i18n="num_conclusion_badge">✦ Sacred Synthesis & Final Blessing ✦</div>
+                <h3 class="conclusion-heading" id="conclusionHeading">Overall Conclusion</h3>
+                <p class="conclusion-body" id="conclusionBody"></p>
+                
+                <!-- WhatsApp Guidance Button under Conclusion -->
+                <div class="conclusion-action">
+                  <a href="#" id="nameWaGuidanceBtn" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" data-i18n="num_guidance_btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.54 1.765.808 2.8.808 3.181 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.766-5.772-5.766zm0 10.366c-.886 0-1.637-.238-2.316-.653l-.166-.102-1.57.412.419-1.53-.108-.172c-.443-.706-.704-1.472-.704-2.555 0-2.536 2.064-4.601 4.602-4.601 2.537 0 4.602 2.065 4.602 4.601 0 2.537-2.065 4.6-4.602 4.6z"/></svg>
+                    <span data-i18n="num_guidance_btn">Speak with our organiser for guidance</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Privacy Note: "Your name is not stored." -->
+            <div style="text-align: center; margin-top: 1.5rem;">
+              <div class="unified-privacy">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span data-i18n="num_name_privacy">Your name is not stored. All calculations run securely in your browser.</span>
+              </div>
+            </div>
+
+            <!-- Disclaimer at bottom of the block (Step 5) -->
+            <div class="unified-disclaimer" data-i18n="num_disclaimer" style="margin-top: 0.75rem;">
+              Results are for spiritual and informational purposes only.
+            </div>
+
           </div>
         </div>
       </div>

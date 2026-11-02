@@ -1,4 +1,87 @@
 {
+  "name": {
+    "1": {
+      "tone": "favourable",
+      "archetype": "The Dynamic Leader",
+      "archetype_ta": "தலைமைப்பண்பு & முன்னோடி ஆற்றல்",
+      "planet": "Sun (Surya)",
+      "planet_ta": "சூரிய பகவான்",
+      "text": "Name Number 1 is associated with personal initiative, courage, and clear individuality. Expressing your thoughts with confidence, upright integrity, and generous warmth is traditionally said to open doors to respected leadership and purposeful accomplishments.",
+      "text_ta": "பெயர் எண் 1 தனித்திறன், துணிச்சல் மற்றும் தலைமைப்பண்புடன் தொடர்புடையது. தெளிவான சிந்தனையோடும், தர்ம நெறியோடும் செயல்படும்போது இயல்பான செல்வாக்கும் நற்பெயரும் சேரும் என நம்பப்படுகிறது."
+    },
+    "2": {
+      "tone": "challenge",
+      "archetype": "The Sensitive Peacemaker",
+      "archetype_ta": "சாந்தம் & மன சமநிலை",
+      "planet": "Moon (Chandra)",
+      "planet_ta": "சந்திர பகவான்",
+      "text": "According to this numerology method, Name Number 2 is associated with heightened emotional sensitivity and may require more effort to maintain steady personal boundaries and decisive focus. Traditionally, patience, cultivating calm detachment, and regular devotional practice are said to bring comforting balance.",
+      "text_ta": "இந்த எண் கணித முறையின்படி, பெயர் எண் 2 அதீத உணர்ச்சிவசப்படுதல் மற்றும் முடிவெடுப்பதில் சில சவால்களைக் கொண்டிருக்கலாம். பொறுமை, மன அமைதிக்கான தியானம் மற்றும் பக்தி மார்க்கம் சிறந்த சமநிலையைத் தரும் என கூறப்படுகிறது."
+    },
+    "3": {
+      "tone": "favourable",
+      "archetype": "The Inspiring Communicator",
+      "archetype_ta": "ஞானம் & உற்சாகப் பேச்சு",
+      "planet": "Jupiter (Guru)",
+      "planet_ta": "குரு பகவான்",
+      "text": "Name Number 3 reflects joyful self-expression, creative enthusiasm, and an uplifting social presence. Channeling this vitality into truthful speech, honorable learning, and generosity is believed to invite widespread goodwill and intellectual expansion.",
+      "text_ta": "பெயர் எண் 3 உற்சாகமான பேச்சுத்திறன், படைப்பாற்றல் மற்றும் சுப எண்ணங்களுடன் தொடர்புடையது. நல்வழியில் அறிவைப் பகிர்வதும், பெரியோரை மதிப்பவதும் வாழ்வில் வெற்றிகளையும் புகழையும் சேர்க்கும் என கருதப்படுகிறது."
+    },
+    "4": {
+      "tone": "challenge",
+      "archetype": "The Methodical Worker",
+      "archetype_ta": "உழைப்பு & திடீர் திருப்பம்",
+      "planet": "Rahu",
+      "planet_ta": "ராகு பகவான்",
+      "text": "According to this numerology method, Name Number 4 is associated with circumstances that often demand rigorous labor, detailed planning, and resilience against sudden shifts. Traditionally, steadfast honesty, disciplined routines, and humble prayer are said to construct enduring security.",
+      "text_ta": "பாரம்பரிய முறைப்படி, பெயர் எண் 4 கடின உழைப்பு மற்றும் எதிர்பாராத திருப்பங்களை எதிர்கொள்ளும் பொறுமையை வேண்டி நிற்கிறது. நேர்மையான உழைப்பும், முறையான திட்டமிடலும், இறை வழிபாடும் நிலையான பாதுகாப்பை உருவாக்கும் என்று கூறப்படுகிறது."
+    },
+    "5": {
+      "tone": "challenge",
+      "archetype": "The Restless Explorer",
+      "archetype_ta": "சுறுசுறுப்பு & சஞ்சலம்",
+      "planet": "Mercury (Budha)",
+      "planet_ta": "புதன் பகவான்",
+      "text": "According to this numerology method, Name Number 5 is associated with rapid versatility that can sometimes bring scattered energies or inconsistency. Traditionally, intentional mindfulness, patient follow-through, and grounding spiritual disciplines are said to help direct its quick intelligence constructively.",
+      "text_ta": "இந்த எண் கணித முறையின்படி, பெயர் எண் 5 விரைவான மாற்றங்களையும் சஞ்சலங்களையும் தூண்டக்கூடியதாக அறியப்படுகிறது. பொறுமையுடன் ஒரு காரியத்தில் நிலைத்திருப்பதும், ஆன்மீக கவனமும் இந்த சுறுசுறுப்பான ஆற்றலை நற்பயனாக மாற்ற உதவும் எனப்படுகிறது."
+    },
+    "6": {
+      "tone": "favourable",
+      "archetype": "The Nurturing Anchor",
+      "archetype_ta": "பாசம் & குடும்ப மகிழ்ச்சி",
+      "planet": "Venus (Shukra)",
+      "planet_ta": "சுக்கிர பகவான்",
+      "text": "Name Number 6 radiates warmth, magnetic sociability, and an innate instinct to care for others. Cultivating domestic peace, artistic balance, and unconditional goodwill is said to surround the individual with lasting love and harmonious friendships.",
+      "text_ta": "பெயர் எண் 6 குடும்பப் பற்று, பாசம் மற்றும் ஈர்ப்புத்திறனுடன் கூடிய சுப அதிர்வாகும். அன்பான பேச்சும், சுப எண்ணங்களும், கலை ஆர்வமும் சுற்றத்தாரின் ஆதரவையும் இல்லற மகிழ்ச்சியையும் பெருக்கும் என நம்பப்படுகிறது."
+    },
+    "7": {
+      "tone": "challenge",
+      "archetype": "The Solitary Seeker",
+      "archetype_ta": "ஞான தேடல் & மனவிலகல்",
+      "planet": "Ketu",
+      "planet_ta": "கேது பகவான்",
+      "text": "According to this numerology method, Name Number 7 is associated with feeling misunderstood or detached from conventional social circles, calling for deeper inner patience. Traditionally, spiritual inquiry, sacred study, and devotion are said to transform solitary feelings into profound wisdom and serene peace.",
+      "text_ta": "பாரம்பரிய சாஸ்திரப்படி, பெயர் எண் 7 உலகியல் உறவுகளில் சில மனவிலகல்களையும் சவால்களையும் ஏற்படுத்தக்கூடும். ஆன்மீக நாட்டம், தன்னடக்கம் மற்றும் புனித நூல்களை பயில்வது இதன் மூலம் அமைதியையும் மெய்யறிவையும் தரும் என்று கூறப்படுகிறது."
+    },
+    "8": {
+      "tone": "challenge",
+      "archetype": "The Resilient Striver",
+      "archetype_ta": "நீதி & விடாமுயற்சி",
+      "planet": "Saturn (Shani)",
+      "planet_ta": "சனி பகவான்",
+      "text": "According to this numerology method, Name Number 8 is associated with heavy responsibilities, delays, and lessons in humility where results take time to mature. Traditionally, unbending integrity, patience without complaint, and devoted service are said to pave the way to monumental, lifelong achievement.",
+      "text_ta": "இந்த எண் கணித முறையின்படி, பெயர் எண் 8 பொறுப்புகள், காலதாமதங்கள் மற்றும் கடுமையான உழைப்பைக் கோரக்கூடியது. தர்மம் தவறாத வாழ்க்கை, பொறுமை மற்றும் சனி பகவானின் திருவருள் மூலம் இறுதியில் அசைக்க முடியாத உயர்வு கைகூடும் என நம்பப்படுகிறது."
+    },
+    "9": {
+      "tone": "favourable",
+      "archetype": "The Noble Crusader",
+      "archetype_ta": "வீரம் & தியாக உள்ளம்",
+      "planet": "Mars (Mangal)",
+      "planet_ta": "செவ்வாய் பகவான்",
+      "text": "Name Number 9 resonates with humanitarian spirit, broad vision, and brave generosity. Standing up for justice, helping those in distress, and acting with noble purpose are traditionally believed to bring profound moral honor and divine protection.",
+      "text_ta": "பெயர் எண் 9 தாராள குணம், துணிச்சல் மற்றும் பொதுநல சேவை மனப்பான்மையைக் குறிக்கிறது. நற்காரியங்களுக்கு துணை நிற்பதும், அறவழியில் வாழ்வதும் நற்பெயரையும் தெய்வீக காவலையும் வழங்கும் என்று நம்பப்படுகிறது."
+    }
+  },
   "pyramid": {
     "1": {
       "tone": "favourable",
@@ -80,6 +163,32 @@
       "planet_ta": "செவ்வாய் பகவான்",
       "text": "According to this numerology method, Pyramid Number 9 represents courage, dynamic vitality, and selfless protection. Sincere focus on righteous causes and defending dharma are said to bring universal respect and triumph over adversity.",
       "text_ta": "இந்த எண் கணித முறையின்படி, பிரமிடு எண் 9 அளப்பரிய வீரம், ஆற்றல் மற்றும் தியாக உள்ளத்துடன் தொடர்புடையதாக கருதப்படுகிறது. இந்த தீவிர ஆற்றலை நற்காரியங்களுக்கும், மற்றவர்களை காப்பதற்கும் பயன்படுத்தும்போது மாபெரும் வெற்றிகளும் புகழும் கைகூடும் என கூறப்படுகிறது."
+    }
+  },
+  "conclusion": {
+    "bothPositive": {
+      "title": "Auspicious Numerical Harmony",
+      "title_ta": "சுபமங்கள சங்கமம் (முழுமையான சுப அதிர்வு)",
+      "text": "Both your Name Number and Pyramid Pinnacle vibrate with favourable cosmic energies. This harmonious alignment is traditionally believed to foster natural grace, progressive opportunities, and smooth spiritual and material unfolding when complemented by righteous living and dedication.",
+      "text_ta": "உங்கள் பெயர் எண் மற்றும் பிரமிடு சிகர எண் ஆகிய இரண்டும் சுப மங்களமான ஆற்றலோடு ஒத்துப்போகின்றன. இந்த நல்லிணக்கம் நேர்மையான வாழ்வு, நற்பண்புகள் மற்றும் இறை வழிபாட்டின் மூலமாக மேலும் பல சுப வாய்ப்புகளையும் வெற்றிகளையும் கொண்டுவர துணை நிற்கும் என பாரம்பரியமாக நம்பப்படுகிறது."
+    },
+    "nameChallenging": {
+      "title": "Balanced Alignment with Conscious Effort",
+      "title_ta": "பொறுமையும் முன்னேற்றமும் (சமநிலை வழிகாட்டல்)",
+      "text": "While your Pyramid Pinnacle radiates an encouraging and supportive flow, your Name Number suggests areas that may call for greater patience, self-discipline, and conscious effort. Blending your natural foundation with steady spiritual focus and humble perseverance is traditionally said to turn challenges into enduring strengths.",
+      "text_ta": "உங்கள் பிரமிடு சிகர எண் நல்ல உந்துதலையும் சுப அதிர்வையும் தரும் வேளையில், பெயர் எண் சில வாழ்வியல் துறைகளில் கூடுதல் கவனத்தையும் பொறுமையையும் கோரக்கூடியதாக உள்ளது. நேர்மறையான எண்ணங்கள், குரு வழிகாட்டல் மற்றும் விடாமுயற்சியுடன் செயல்படும்போது இயல்பான பலம் மேலும் மெருகேறும் என்று கூறப்படுகிறது."
+    },
+    "pyramidChallenging": {
+      "title": "Expressive Strength with Inner Grounding",
+      "title_ta": "ஆற்றலும் ஆன்மீக வழிகாட்டலும் (அக சமநிலை)",
+      "text": "Your Name Number reflects bright, constructive outward vibrations, while the Pyramid Pinnacle indicates that deeper inner milestones may require measured patience and resilience against unforeseen turns. Grounding your enthusiastic initiatives with sincere spiritual devotion and mature counsel is traditionally held to harmonize this journey.",
+      "text_ta": "உங்கள் பெயர் எண் சிறந்த புற ஆற்றலையும் நற்பண்புகளையும் வெளிப்படுத்தும் அதே வேளையில், பிரமிடு சிகரம் ஆழமான அகப்பயணத்தில் நிதானத்தையும் சகிப்புத்தன்மையையும் கடைப்பிடிக்க அறிவுறுத்துகிறது. பக்தி, தன்னம்பிக்கை மற்றும் அனுபவமிக்க பெரியோரின் ஆசியோடு செயல்படுவது சமநிலையைத் தரும் என கூறப்படுகிறது."
+    },
+    "bothChallenging": {
+      "title": "Path of Perseverance & Sacred Grace",
+      "title_ta": "பக்தி, பொறுமை & பரிகார பலன் (தெய்வீக ஆசி)",
+      "text": "According to this numerology method, both numbers reflect aspects of life where steady patience, self-mastery, and conscientious effort are especially meaningful. Ancient traditions regard these vibrations not as limitations, but as sacred invitations to cultivate deep inner resilience, sincere devotion, and sacred parikaram that invite divine guidance and enduring peace.",
+      "text_ta": "பாரம்பரிய முறைப்படி, இவ்விரு எண்களும் வாழ்வின் பல கட்டங்களில் ஆழ்ந்த பொறுமை, ஆன்மீக பக்குவம் மற்றும் தளர்வில்லா உழைப்பை வேண்டி நிற்கின்றன. இதனை தடையாக கருதாமல், மன உறுதியை வளர்த்து, குலதெய்வ வழிபாடு மற்றும் முறையான சாந்த பரிகாரங்களின் துணை கொண்டு செயல்பட்டால் அமைதியும் நீடித்த நன்மைகளும் பெறலாம் என்று நம்பப்படுகிறது."
     }
   },
   "mobile": {

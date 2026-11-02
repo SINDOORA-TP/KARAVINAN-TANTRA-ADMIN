@@ -117,6 +117,8 @@ const TRANSLATIONS = {
     num_pyramid_num_label: 'Pyramid Number',
     num_mobile_num_label: 'Mobile Number Vibration',
     num_guidance_btn: 'Speak with our organiser for guidance',
+    num_conclusion_badge: '✦ Sacred Synthesis & Final Blessing ✦',
+    num_name_privacy: 'Your name is not stored. All calculations run securely in your browser.',
     num_privacy: 'Your details are not stored. All calculations run securely in your browser.',
     num_disclaimer: 'Results are for spiritual and informational purposes only.',
 
@@ -233,6 +235,8 @@ const TRANSLATIONS = {
     num_pyramid_num_label: 'பிரமிடு எண்',
     num_mobile_num_label: 'மொபைல் எண் அதிர்வு',
     num_guidance_btn: 'குருநாதரின் வழிகாட்டுதல் பெற',
+    num_conclusion_badge: '✦ புனித ஒருங்கிணைப்பு & மகா ஆசி ✦',
+    num_name_privacy: '🔒 உங்கள் பெயர் எங்கும் சேமிக்கப்படாது. உங்கள் உலாவியிலேயே கணக்கிடப்படுகிறது.',
     num_privacy: '🔒 உங்கள் விவரங்கள் எங்கும் சேமிக்கப்படாது. உங்கள் உலாவியிலேயே கணக்கிடப்படுகிறது.',
     num_disclaimer: 'முடிவுகள் ஆன்மீக மற்றும் தகவல் விழிப்புணர்வு நோக்கத்திற்காக மட்டுமே.',
 
@@ -294,6 +298,8 @@ const reduce = n => {
   return n; 
 };
 
+const CHALLENGING = [2, 4, 5, 7, 8];
+
 function nameResult(raw) {
   const vals = raw.toUpperCase().replace(/[^A-Z]/g, '').split('').map(l => VALUES[l]);
   if (!vals.length) return null;
@@ -301,6 +307,14 @@ function nameResult(raw) {
   let row = vals;
   while (row.length > 1) row = row.slice(1).map((v, i) => row[i] + v);
   return { nameNumber, pyramidNumber: reduce(row[0]) };
+}
+
+function conclusion(n, p) {
+  const nc = CHALLENGING.includes(n), pc = CHALLENGING.includes(p);
+  const C = (state.numerologyData && state.numerologyData.conclusion) || {};
+  if (!nc && !pc) return C.bothPositive;
+  if (nc && pc)  return C.bothChallenging;
+  return nc ? C.nameChallenging : C.pyramidChallenging;
 }
 
 function mobileResult(raw) {
@@ -1095,50 +1109,89 @@ function renderNameResult(data) {
   const isTamil = state.lang === 'ta';
 
   const wrap = document.getElementById('nameResultsWrap');
-  const bannerName = document.getElementById('bannerNameNum');
-  const bannerPyramid = document.getElementById('bannerPyramidNum');
-  const heading = document.getElementById('nameInterpHeading');
-  const planet = document.getElementById('nameInterpPlanet');
-  const toneBox = document.getElementById('nameInterpToneBox');
-  const waBtn = document.getElementById('nameWaGuidanceBtn');
-
   if (!wrap) return;
   wrap.style.display = 'block';
 
-  // Red banner plate: final numbers only
+  // --- Part 1: Name Number Card ---
+  const bannerName = document.getElementById('bannerNameNum');
+  const nameHeading = document.getElementById('nameCardHeading');
+  const namePlanet = document.getElementById('nameCardPlanet');
+  const nameToneBox = document.getElementById('nameCardToneBox');
+
   if (bannerName) bannerName.textContent = nameNumber;
+
+  const nameDict = (state.numerologyData && state.numerologyData.name) || {};
+  const nData = nameDict[String(nameNumber)] || {};
+  const isNameChallenge = CHALLENGING.includes(nameNumber);
+
+  if (nameHeading) {
+    const archName = isTamil && nData.archetype_ta ? nData.archetype_ta : (nData.archetype || `Name Number ${nameNumber}`);
+    nameHeading.textContent = isTamil 
+      ? `பெயர் எண் பலன்: ${nameNumber} (${archName})`
+      : `Name Number Interpretation: ${nameNumber} (${archName})`;
+  }
+
+  if (namePlanet) {
+    const pText = isTamil && nData.planet_ta ? nData.planet_ta : (nData.planet || 'Surya');
+    namePlanet.textContent = `${isTamil ? 'அதிபதி கிரகம்: ' : 'Planetary Influence: '} ${pText}`;
+  }
+
+  if (nameToneBox) {
+    nameToneBox.className = isNameChallenge ? 'interp-challenge-box' : 'interp-favourable-box';
+    const interpText = isTamil && nData.text_ta 
+      ? nData.text_ta 
+      : (nData.text || 'According to this numerology method, sincere effort and devotion are said to guide you forward.');
+    nameToneBox.innerHTML = `<p>${interpText}</p>`;
+  }
+
+  // --- Part 2: Pyramid Number Card ---
+  const bannerPyramid = document.getElementById('bannerPyramidNum');
+  const pyramidHeading = document.getElementById('pyramidCardHeading');
+  const pyramidPlanet = document.getElementById('pyramidCardPlanet');
+  const pyramidToneBox = document.getElementById('pyramidCardToneBox');
+
   if (bannerPyramid) bannerPyramid.textContent = pyramidNumber;
 
-  // Data from numerology.json
   const pyramidDict = (state.numerologyData && state.numerologyData.pyramid) || {};
   const pData = pyramidDict[String(pyramidNumber)] || {};
+  const isPyramidChallenge = CHALLENGING.includes(pyramidNumber);
 
-  // Tone rules: 2, 4, 5, 7, 8 challenging (respectful); 1, 3, 6, 9 favourable
-  const isChallenge = [2, 4, 5, 7, 8].includes(pyramidNumber);
-
-  if (heading) {
+  if (pyramidHeading) {
     const archName = isTamil && pData.archetype_ta ? pData.archetype_ta : (pData.archetype || `Pyramid Number ${pyramidNumber}`);
-    heading.textContent = isTamil 
-      ? `எண் கணித பலன் (பிரமிடு எண்: ${pyramidNumber} — ${archName})` 
-      : `Numerology Result: Pyramid Number ${pyramidNumber} (${archName})`;
+    pyramidHeading.textContent = isTamil 
+      ? `பிரமிடு சிகர எண் பலன்: ${pyramidNumber} (${archName})`
+      : `Pyramid Pinnacle Interpretation: ${pyramidNumber} (${archName})`;
   }
 
-  if (planet) {
+  if (pyramidPlanet) {
     const pText = isTamil && pData.planet_ta ? pData.planet_ta : (pData.planet || 'Surya');
-    planet.textContent = `${isTamil ? 'அதிபதி கிரகம்: ' : 'Planetary Influence: '} ${pText}`;
+    pyramidPlanet.textContent = `${isTamil ? 'அதிபதி கிரகம்: ' : 'Planetary Influence: '} ${pText}`;
   }
 
-  if (toneBox) {
-    toneBox.className = isChallenge ? 'interp-challenge-box' : 'interp-favourable-box';
+  if (pyramidToneBox) {
+    pyramidToneBox.className = isPyramidChallenge ? 'interp-challenge-box' : 'interp-favourable-box';
     const interpText = isTamil && pData.text_ta 
       ? pData.text_ta 
-      : (pData.text || (typeof pData === 'string' ? pData : 'According to this numerology method, guidance, devotion and sincere effort are said to help.'));
-    toneBox.innerHTML = `<p>${interpText}</p>`;
+      : (pData.text || 'According to this numerology method, patience, devotion and sincere effort are said to help.');
+    pyramidToneBox.innerHTML = `<p>${interpText}</p>`;
+  }
+
+  // --- Part 3: Overall Conclusion Card ---
+  const concHeading = document.getElementById('conclusionHeading');
+  const concBody = document.getElementById('conclusionBody');
+  const waBtn = document.getElementById('nameWaGuidanceBtn');
+
+  const cData = conclusion(nameNumber, pyramidNumber);
+  if (concHeading) {
+    concHeading.textContent = isTamil && cData?.title_ta ? cData.title_ta : (cData?.title || 'Overall Conclusion');
+  }
+  if (concBody) {
+    concBody.textContent = isTamil && cData?.text_ta ? cData.text_ta : (cData?.text || 'According to this numerology method, patience, devotion and sincere effort are traditionally said to invite auspicious harmony.');
   }
 
   if (waBtn) {
     const waText = encodeURIComponent(
-      `Namaste Sri Karavinan Swamigal,\n\nI checked my Name Numerology on the website:\n✦ Name: ${raw}\n✦ Name Number: ${nameNumber}\n✦ Pyramid Number: ${pyramidNumber}\n\nI seek your sacred guidance and recommended parikarams.`
+      `Namaste Sri Karavinan Swamigal,\n\nI checked my Sacred Name Numerology on the website:\n✦ Name: ${raw}\n✦ Name Number: ${nameNumber}\n✦ Pyramid Number: ${pyramidNumber}\n\nI seek your sacred guidance and recommended parikarams.`
     );
     waBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${waText}`;
   }
